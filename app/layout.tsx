@@ -1,6 +1,5 @@
 import type { Metadata } from "next";
 import { Inter } from "next/font/google";
-import Script from "next/script";
 import { Providers } from "@/components/layout/Providers";
 import Header from "@/components/layout/Header";
 import Footer from "@/components/layout/Footer";
@@ -28,11 +27,10 @@ export default function RootLayout({
   return (
     <html lang="pt-BR">
       <head>
-        <Script
+        <script
           async
           src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-5870578760180014"
           crossOrigin="anonymous"
-          strategy="afterInteractive"
         />
         {/* Structured Data */}
         <script
