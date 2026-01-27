@@ -1,8 +1,10 @@
 import type { Metadata } from "next";
 import { Inter } from "next/font/google";
+import Script from "next/script";
 import { Providers } from "@/components/layout/Providers";
 import Header from "@/components/layout/Header";
 import Footer from "@/components/layout/Footer";
+import { getSchemaSite, getSchemaOrganization } from "@/lib/seo";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -20,8 +22,28 @@ export default function RootLayout({
 }: Readonly<{
   children: React.ReactNode;
 }>) {
+  const schemaSite = getSchemaSite();
+  const schemaOrg = getSchemaOrganization();
+
   return (
     <html lang="pt-BR">
+      <head>
+        <Script
+          async
+          src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-5870578760180014"
+          crossOrigin="anonymous"
+          strategy="afterInteractive"
+        />
+        {/* Structured Data */}
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{ __html: JSON.stringify(schemaSite) }}
+        />
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{ __html: JSON.stringify(schemaOrg) }}
+        />
+      </head>
       <body className={inter.className}>
         <Providers>
           <Header />

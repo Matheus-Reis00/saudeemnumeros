@@ -6,6 +6,7 @@ import IMCCalculator from '@/components/calculadoras/IMCCalculator';
 import CaloriasCalculator from '@/components/calculadoras/CaloriasCalculator';
 import PesoIdealCalculator from '@/components/calculadoras/PesoIdealCalculator';
 import AdsenseBanner from '@/components/ads/AdsenseBanner';
+import { constructMetadata, getSchemaCalculator, getSchemaBreadcrumbs } from '@/lib/seo';
 
 interface Props {
     params: Promise<{ slug: string }>;
@@ -33,12 +34,13 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
     const { slug } = await params;
     const calc = calculators[slug as keyof typeof calculators];
 
-    if (!calc) return { title: 'Calculadora não encontrada' };
+    if (!calc) return constructMetadata({ title: 'Calculadora não encontrada' });
 
-    return {
-        title: `${calc.title} | Saúde em Números`,
+    return constructMetadata({
+        title: calc.title,
         description: calc.description,
-    };
+        canonical: `https://saudeemnumeros.com.br/calculadoras/${slug}`,
+    });
 }
 
 export default async function CalculatorPage({ params }: Props) {
@@ -51,8 +53,29 @@ export default async function CalculatorPage({ params }: Props) {
 
     const CalcComponent = calc.component;
 
+    const jsonLd = getSchemaCalculator({
+        name: calc.title,
+        description: calc.description,
+        url: `https://saudeemnumeros.com.br/calculadoras/${slug}`,
+    });
+
+    const breadcrumbsLd = getSchemaBreadcrumbs([
+        { name: 'Home', item: '/' },
+        { name: 'Calculadoras', item: '/calculadoras' },
+        { name: calc.title, item: `/calculadoras/${slug}` },
+    ]);
+
     return (
         <Container>
+            <script
+                type="application/ld+json"
+                dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
+            />
+            <script
+                type="application/ld+json"
+                dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbsLd) }}
+            />
+
             <Section>
                 <div style={{ maxWidth: '800px', margin: '0 auto' }}>
                     <h1 style={{ fontSize: '2.5rem', marginBottom: '16px', textAlign: 'center' }}>{calc.title}</h1>

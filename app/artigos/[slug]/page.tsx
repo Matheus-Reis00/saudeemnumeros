@@ -4,6 +4,7 @@ import { notFound } from 'next/navigation';
 import { Container, Section } from '@/components/ui/Container';
 import AdsenseBanner from '@/components/ads/AdsenseBanner';
 import { getArticleBySlug } from '@/lib/mdx';
+import { constructMetadata, getSchemaArticle, getSchemaBreadcrumbs } from '@/lib/seo';
 import * as S from './ArticleStyles';
 
 interface Props {
@@ -14,12 +15,13 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
     const { slug } = await params;
     const article = await getArticleBySlug(slug);
 
-    if (!article) return { title: 'Artigo não encontrado' };
+    if (!article) return constructMetadata({ title: 'Artigo não encontrado' });
 
-    return {
+    return constructMetadata({
         title: article.meta.title,
         description: article.meta.description,
-    };
+        canonical: `https://saudeemnumeros.com.br/artigos/${slug}`,
+    });
 }
 
 export default async function ArticlePage({ params }: Props) {
@@ -30,8 +32,33 @@ export default async function ArticlePage({ params }: Props) {
         notFound();
     }
 
+    const jsonLd = getSchemaArticle({
+        title: article.meta.title,
+        description: article.meta.description,
+        author: 'Redação Saúde em Números',
+        datePublished: article.meta.date,
+        dateModified: article.meta.date,
+        image: 'https://saudeemnumeros.com.br/og-image.jpg', // Idealmente viria do mdx
+        url: `https://saudeemnumeros.com.br/artigos/${slug}`,
+    });
+
+    const breadcrumbsLd = getSchemaBreadcrumbs([
+        { name: 'Home', item: '/' },
+        { name: 'Artigos', item: '/artigos' },
+        { name: article.meta.title, item: `/artigos/${slug}` },
+    ]);
+
     return (
         <Container>
+            <script
+                type="application/ld+json"
+                dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
+            />
+            <script
+                type="application/ld+json"
+                dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbsLd) }}
+            />
+
             <Section>
                 <S.ArticleHeader>
                     <S.Title>{article.meta.title}</S.Title>

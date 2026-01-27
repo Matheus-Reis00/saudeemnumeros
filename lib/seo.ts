@@ -1,44 +1,169 @@
 import { Metadata } from 'next';
 
+const siteConfig = {
+    name: "Saúde em Números",
+    description: "Calculadoras de saúde, ferramentas de emagrecimento e artigos científicos para uma vida saudável.",
+    url: "https://saudeemnumeros.com.br",
+    ogImage: "https://saudeemnumeros.com.br/og-image.jpg",
+    twitterHandle: "@saudeemnumeros"
+};
+
 export function constructMetadata({
-    title = "Saúde em Números",
-    description = "Calculadoras de saúde e artigos para emagrecimento saudável.",
-    image = "/og-image.jpg",
-    noIndex = false
+    title,
+    description = siteConfig.description,
+    image = siteConfig.ogImage,
+    noIndex = false,
+    canonical = siteConfig.url,
 }: {
     title?: string;
     description?: string;
     image?: string;
     noIndex?: boolean;
+    canonical?: string;
 } = {}): Metadata {
+    const fullTitle = title ? `${title} | ${siteConfig.name}` : siteConfig.name;
+
     return {
-        title,
+        title: fullTitle,
         description,
+        keywords: ["saúde", "emagrecimento", "IMC", "calculadoras de saúde", "dieta", "fitness", "bem-estar"],
+        alternates: {
+            canonical: canonical,
+        },
         openGraph: {
-            title,
+            title: fullTitle,
             description,
+            url: canonical,
+            siteName: siteConfig.name,
             images: [
                 {
-                    url: image
+                    url: image,
+                    width: 1200,
+                    height: 630,
+                    alt: fullTitle,
                 }
-            ]
+            ],
+            locale: "pt_BR",
+            type: "website",
         },
         twitter: {
             card: "summary_large_image",
-            title,
+            title: fullTitle,
             description,
             images: [image],
-            creator: "@saudeemnumeros"
+            creator: siteConfig.twitterHandle
         },
-        icons: {
-            icon: "/favicon.ico",
-        },
-        metadataBase: new URL('https://saudeemnumeros.com.br'),
+        metadataBase: new URL(siteConfig.url),
         ...(noIndex && {
             robots: {
                 index: false,
                 follow: false
             }
         })
+    };
+}
+
+/**
+ * Structured Data (Schema.org) Helpers
+ */
+
+export function getSchemaSite() {
+    return {
+        "@context": "https://schema.org",
+        "@type": "WebSite",
+        "name": siteConfig.name,
+        "url": siteConfig.url,
+        "potentialAction": {
+            "@type": "SearchAction",
+            "target": `${siteConfig.url}/busca?q={search_term_string}`,
+            "query-input": "required name=search_term_string"
+        }
+    };
+}
+
+export function getSchemaOrganization() {
+    return {
+        "@context": "https://schema.org",
+        "@type": "Organization",
+        "@id": `${siteConfig.url}/#organization`,
+        "name": siteConfig.name,
+        "url": siteConfig.url,
+        "logo": {
+            "@type": "ImageObject",
+            "url": `${siteConfig.url}/logo.png`,
+            "width": 190,
+            "height": 60
+        },
+        "sameAs": [
+            "https://facebook.com/saudeemnumeros",
+            "https://instagram.com/saudeemnumeros",
+            "https://twitter.com/saudeemnumeros"
+        ]
+    };
+}
+
+export function getSchemaArticle(article: {
+    title: string;
+    description: string;
+    author: string;
+    datePublished: string;
+    dateModified: string;
+    image: string;
+    url: string;
+}) {
+    return {
+        "@context": "https://schema.org",
+        "@type": "BlogPosting",
+        "headline": article.title,
+        "description": article.description,
+        "image": article.image,
+        "author": {
+            "@type": "Person",
+            "name": article.author,
+            "url": `${siteConfig.url}/sobre`
+        },
+        "publisher": {
+            "@id": `${siteConfig.url}/#organization`
+        },
+        "datePublished": article.datePublished,
+        "dateModified": article.dateModified || article.datePublished,
+        "mainEntityOfPage": {
+            "@type": "WebPage",
+            "@id": article.url
+        }
+    };
+}
+
+export function getSchemaBreadcrumbs(items: { name: string; item: string }[]) {
+    return {
+        "@context": "https://schema.org",
+        "@type": "BreadcrumbList",
+        "itemListElement": items.map((item, index) => ({
+            "@type": "ListItem",
+            "position": index + 1,
+            "name": item.name,
+            "item": item.item.startsWith('http') ? item.item : `${siteConfig.url}${item.item}`
+        }))
+    };
+}
+
+export function getSchemaCalculator(calc: {
+    name: string;
+    description: string;
+    url: string;
+}) {
+    return {
+        "@context": "https://schema.org",
+        "@type": "WebApplication",
+        "name": calc.name,
+        "description": calc.description,
+        "url": calc.url,
+        "applicationCategory": "HealthApplication",
+        "operatingSystem": "All",
+        "offers": {
+            "@type": "Offer",
+            "price": "0",
+            "priceCurrency": "BRL"
+        }
     };
 }
