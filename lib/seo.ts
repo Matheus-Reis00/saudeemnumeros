@@ -5,7 +5,22 @@ const siteConfig = {
     description: "Calculadoras de saúde, ferramentas de emagrecimento e artigos científicos para uma vida saudável.",
     url: "https://saudeemnumeros.com.br",
     ogImage: "https://saudeemnumeros.com.br/og-image.jpg",
-    twitterHandle: "@saudeemnumeros"
+    twitterHandle: "@saudeemnumeros",
+    keywords: [
+        "saúde",
+        "emagrecimento",
+        "IMC",
+        "calculadoras de saúde",
+        "dieta",
+        "fitness",
+        "bem-estar",
+        "calculadora de calorias",
+        "peso ideal",
+        "déficit calórico",
+        "tabela imc",
+        "perder peso",
+        "saúde metabólica"
+    ]
 };
 
 export function constructMetadata({
@@ -26,7 +41,7 @@ export function constructMetadata({
     return {
         title: fullTitle,
         description,
-        keywords: ["saúde", "emagrecimento", "IMC", "calculadoras de saúde", "dieta", "fitness", "bem-estar"],
+        keywords: siteConfig.keywords,
         alternates: {
             canonical: canonical,
         },

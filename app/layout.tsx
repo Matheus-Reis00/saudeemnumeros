@@ -4,6 +4,7 @@ import { Providers } from "@/components/layout/Providers";
 import Header from "@/components/layout/Header";
 import Footer from "@/components/layout/Footer";
 import { getSchemaSite, getSchemaOrganization } from "@/lib/seo";
+import { GoogleAnalytics } from "@/components/analytics/GoogleAnalytics";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -32,7 +33,6 @@ export default function RootLayout({
           src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-5870578760180014"
           crossOrigin="anonymous"
         />
-        {/* Structured Data */}
         <script
           type="application/ld+json"
           dangerouslySetInnerHTML={{ __html: JSON.stringify(schemaSite) }}
@@ -43,6 +43,7 @@ export default function RootLayout({
         />
       </head>
       <body className={inter.className}>
+        <GoogleAnalytics GA_MEASUREMENT_ID="G-V0VX3TYCL9" />
         <Providers>
           <Header />
           <main>{children}</main>
