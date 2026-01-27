@@ -8,7 +8,7 @@ import PesoIdealCalculator from '@/components/calculadoras/PesoIdealCalculator';
 import AdsenseBanner from '@/components/ads/AdsenseBanner';
 
 interface Props {
-    params: { slug: string };
+    params: Promise<{ slug: string }>;
 }
 
 const calculators = {
@@ -30,7 +30,7 @@ const calculators = {
 };
 
 export async function generateMetadata({ params }: Props): Promise<Metadata> {
-    const { slug } = params;
+    const { slug } = await params;
     const calc = calculators[slug as keyof typeof calculators];
 
     if (!calc) return { title: 'Calculadora não encontrada' };
@@ -42,7 +42,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
 }
 
 export default async function CalculatorPage({ params }: Props) {
-    const { slug } = params;
+    const { slug } = await params;
     const calc = calculators[slug as keyof typeof calculators];
 
     if (!calc) {

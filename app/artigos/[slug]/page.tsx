@@ -7,11 +7,11 @@ import { getArticleBySlug } from '@/lib/mdx';
 import * as S from './ArticleStyles';
 
 interface Props {
-    params: { slug: string };
+    params: Promise<{ slug: string }>;
 }
 
 export async function generateMetadata({ params }: Props): Promise<Metadata> {
-    const { slug } = params;
+    const { slug } = await params;
     const article = await getArticleBySlug(slug);
 
     if (!article) return { title: 'Artigo não encontrado' };
@@ -23,7 +23,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
 }
 
 export default async function ArticlePage({ params }: Props) {
-    const { slug } = params;
+    const { slug } = await params;
     const article = await getArticleBySlug(slug);
 
     if (!article) {
