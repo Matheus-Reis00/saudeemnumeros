@@ -51,14 +51,6 @@ export default function CalculadorasListPage() {
 
             <Section>
                 <div style={{ textAlign: 'center', marginBottom: '40px' }}>
-                    <img
-                        src="/logo-og.png"
-                        alt="Saúde em Números Logo"
-                        width={120}
-                        height={120}
-                        style={{ marginBottom: '24px', opacity: 0.8 }}
-                        loading="eager"
-                    />
                     <h1 style={{ fontSize: '3rem', marginBottom: '16px' }}>Ferramentas e Calculadoras</h1>
                     <p style={{ fontSize: '1.25rem', color: '#6B7280', maxWidth: '700px', margin: '0 auto' }}>
                         Utilize nossas ferramentas baseadas em fórmulas científicas para monitorar sua saúde e progresso.

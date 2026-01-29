@@ -36,7 +36,9 @@ export function constructMetadata({
     noIndex?: boolean;
     canonical?: string;
 } = {}): Metadata {
-    const fullTitle = title ? `${title} | ${siteConfig.name}` : siteConfig.name;
+    const fullTitle = title
+        ? title.includes(siteConfig.name) ? title : `${title} | ${siteConfig.name}`
+        : siteConfig.name;
 
     // Garantir que a imagem seja uma URL absoluta
     const imageUrl = image.startsWith('http')

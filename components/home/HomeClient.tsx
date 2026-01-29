@@ -111,30 +111,12 @@ const ViewMoreSection = styled.div`
   border-top: 1px solid ${({ theme }) => theme.colors.border};
 `;
 
-const LogoWrapper = styled.div`
-  margin-bottom: ${({ theme }) => theme.spacing.lg};
-  img {
-    max-width: 180px;
-    height: auto;
-    filter: brightness(0) invert(1);
-    opacity: 0.95;
-  }
-`;
 
 export default function HomeClient() {
     return (
         <>
             <Hero>
                 <Container>
-                    <LogoWrapper>
-                        <img
-                            src="/logo-og.png"
-                            alt="Saúde em Números Logo"
-                            width={180}
-                            height={180}
-                            loading="eager"
-                        />
-                    </LogoWrapper>
                     <Title>Sua Jornada Saudável Começa Aqui</Title>
                     <Subtitle>
                         Ferramentas gratuitas e conteúdo baseado em ciência para ajudar você a conquistar o corpo e a saúde que sempre desejou.
