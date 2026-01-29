@@ -68,6 +68,9 @@ export default async function ArticlePage({ params }: Props) {
                         <S.FeaturedImage
                             src={article.meta.image}
                             alt={article.meta.title}
+                            width={1200}
+                            height={630}
+                            loading="lazy"
                         />
                     )}
                     <S.Title>{article.meta.title}</S.Title>
