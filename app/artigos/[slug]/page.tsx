@@ -18,8 +18,9 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
     if (!article) return constructMetadata({ title: 'Artigo não encontrado' });
 
     return constructMetadata({
-        title: article.meta.title,
-        description: article.meta.description,
+        title: article.meta.metaTitle || article.meta.title,
+        description: article.meta.metaDescription || article.meta.description,
+        image: article.meta.image || 'https://saudeemnumeros.com.br/og-image.jpg',
         canonical: `https://saudeemnumeros.com.br/artigos/${slug}`,
     });
 }
@@ -32,13 +33,15 @@ export default async function ArticlePage({ params }: Props) {
         notFound();
     }
 
+    const articleImage = article.meta.image || '/og-image.jpg';
+
     const jsonLd = getSchemaArticle({
         title: article.meta.title,
         description: article.meta.description,
         author: 'Redação Saúde em Números',
         datePublished: article.meta.date,
         dateModified: article.meta.date,
-        image: 'https://saudeemnumeros.com.br/og-image.jpg', // Idealmente viria do mdx
+        image: articleImage.startsWith('http') ? articleImage : `https://saudeemnumeros.com.br${articleImage}`,
         url: `https://saudeemnumeros.com.br/artigos/${slug}`,
     });
 
@@ -61,6 +64,12 @@ export default async function ArticlePage({ params }: Props) {
 
             <Section>
                 <S.ArticleHeader>
+                    {article.meta.image && (
+                        <S.FeaturedImage
+                            src={article.meta.image}
+                            alt={article.meta.title}
+                        />
+                    )}
                     <S.Title>{article.meta.title}</S.Title>
                     <S.Meta>Publicado em {new Date(article.meta.date).toLocaleDateString('pt-BR')}</S.Meta>
                 </S.ArticleHeader>

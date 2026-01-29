@@ -14,18 +14,18 @@ interface Props {
 
 const calculators = {
     'imc': {
-        title: 'Calculadora de IMC',
-        description: 'Calcule seu Índice de Massa Corporal (IMC) e saiba se está no peso saudável.',
+        title: 'Calculadora de IMC Online: Tabela OMS 2026',
+        description: 'Calcule seu Índice de Massa Corporal (IMC) agora. Saiba se seu peso está saudável segundo a tabela da OMS para 2026.',
         component: IMCCalculator
     },
     'calorias': {
-        title: 'Calculadora de Calorias (TDEE)',
-        description: 'Descubra quantas calorias você gasta por dia e como atingir seus objetivos.',
+        title: 'Calculadora de Calorias Diárias (TDEE): Emagrecer ou Ganhar Peso',
+        description: 'Descubra seu gasto energético total e quantas calorias consumir por dia para atingir seu objetivo de peso com saúde.',
         component: CaloriasCalculator
     },
     'peso-ideal': {
-        title: 'Calculadora de Peso Ideal',
-        description: 'Veja a faixa de peso recomendada para sua altura e sexo.',
+        title: 'Calculadora de Peso Ideal por Altura e Idade (Fórmulas Científicas)',
+        description: 'Descubra qual o seu peso ideal utilizando as fórmulas de Devine, Robinson e Hamwi, além da faixa saudável de IMC.',
         component: PesoIdealCalculator
     }
 };

@@ -4,8 +4,10 @@ import HomeClient from '@/components/home/HomeClient';
 import { constructMetadata } from '@/lib/seo';
 
 export const metadata: Metadata = constructMetadata({
-  title: 'Saúde em Números - Calculadoras e Conteúdo de Saúde',
-  description: 'As melhores calculadoras de saúde gratuitas: IMC, Calorias Diárias, Peso Ideal e mais. Artigos baseados em ciência para sua jornada saudável.',
+  title: 'Saúde em Números: Calculadoras de Saúde e Nutrição Online',
+  description: 'Acesse gratuitamente nossas calculadoras de IMC, Calorias Diárias (TDEE) e Peso Ideal. Conteúdo científico para emagrecimento, saúde e bem-estar.',
+  image: '/logo-og.png',
+  canonical: 'https://saudeemnumeros.com.br',
 });
 
 export default function Home() {

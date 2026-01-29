@@ -9,8 +9,9 @@ import * as S from '../artigos/ArticlesStyles'; // Reutilizando os estilos de gr
 import { Calculator, Flame, HeartPulse } from 'lucide-react';
 
 export const metadata: Metadata = constructMetadata({
-    title: 'Nossas Calculadoras de Saúde',
-    description: 'Ferramentas precisas e gratuitas para calcular seu IMC, Calorias Diárias, Peso Ideal e mais.',
+    title: 'Nossas Calculadoras de Saúde: IMC, Calorias e Peso Ideal',
+    description: 'Ferramentas de saúde precisas e gratuitas. Calcule seu IMC, taxa metabólica (TDEE) e peso ideal com fórmulas científicas atualizadas para 2026.',
+    image: '/logo-og.png',
     canonical: 'https://saudeemnumeros.com.br/calculadoras',
 });
 

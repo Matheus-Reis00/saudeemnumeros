@@ -4,7 +4,7 @@ const siteConfig = {
     name: "Saúde em Números",
     description: "Calculadoras de saúde, ferramentas de emagrecimento e artigos científicos para uma vida saudável.",
     url: "https://saudeemnumeros.com.br",
-    ogImage: "https://saudeemnumeros.com.br/og-image.jpg",
+    ogImage: "/logo-og.png",
     twitterHandle: "@saudeemnumeros",
     keywords: [
         "saúde",
@@ -38,6 +38,11 @@ export function constructMetadata({
 } = {}): Metadata {
     const fullTitle = title ? `${title} | ${siteConfig.name}` : siteConfig.name;
 
+    // Garantir que a imagem seja uma URL absoluta
+    const imageUrl = image.startsWith('http')
+        ? image
+        : `${siteConfig.url}${image.startsWith('/') ? '' : '/'}${image}`;
+
     return {
         title: fullTitle,
         description,
@@ -52,7 +57,7 @@ export function constructMetadata({
             siteName: siteConfig.name,
             images: [
                 {
-                    url: image,
+                    url: imageUrl,
                     width: 1200,
                     height: 630,
                     alt: fullTitle,
@@ -65,7 +70,7 @@ export function constructMetadata({
             card: "summary_large_image",
             title: fullTitle,
             description,
-            images: [image],
+            images: [imageUrl],
             creator: siteConfig.twitterHandle
         },
         metadataBase: new URL(siteConfig.url),

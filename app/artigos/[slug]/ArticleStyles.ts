@@ -6,6 +6,15 @@ export const ArticleHeader = styled.header`
   margin-bottom: ${({ theme }) => theme.spacing.xl};
 `;
 
+export const FeaturedImage = styled.img`
+  width: 100%;
+  max-height: 500px;
+  object-fit: cover;
+  border-radius: ${({ theme }) => theme.borderRadius.lg};
+  margin-bottom: ${({ theme }) => theme.spacing.xl};
+  box-shadow: ${({ theme }) => theme.shadows.md};
+`;
+
 export const Title = styled.h1`
   font-size: 3rem;
   margin-bottom: ${({ theme }) => theme.spacing.sm};
