@@ -8,11 +8,14 @@ export const ArticleHeader = styled.header`
 
 export const FeaturedImage = styled.img`
   width: 100%;
+  aspect-ratio: 16 / 9;
   max-height: 500px;
   object-fit: cover;
   border-radius: ${({ theme }) => theme.borderRadius.lg};
   margin-bottom: ${({ theme }) => theme.spacing.xl};
   box-shadow: ${({ theme }) => theme.shadows.md};
+  background-color: ${({ theme }) => theme.colors.surface}; // Placeholder color
+  display: block;
 `;
 
 export const Title = styled.h1`

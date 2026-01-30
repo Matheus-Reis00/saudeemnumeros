@@ -19,7 +19,12 @@ const siteConfig = {
         "déficit calórico",
         "tabela imc",
         "perder peso",
-        "saúde metabólica"
+        "saúde metabólica",
+        "receitas saudáveis",
+        "ciência do sono",
+        "microbioma intestinal",
+        "biohacking",
+        "saúde de precisão"
     ]
 };
 
