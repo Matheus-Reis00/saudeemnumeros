@@ -41,7 +41,7 @@ export default async function ArticlePage({ params }: Props) {
         author: 'Redação Saúde em Números',
         datePublished: article.meta.date,
         dateModified: article.meta.date,
-        image: articleImage.startsWith('http') ? articleImage : `https://saudeemnumeros.com.br${articleImage}`,
+        image: article.meta.image,
         url: `https://saudeemnumeros.com.br/artigos/${slug}`,
     });
 

@@ -129,13 +129,19 @@ export function getSchemaOrganization() {
     };
 }
 
+// Helper para garantir URL absoluta de imagem
+function getFullImageUrl(image?: string) {
+    const img = image || siteConfig.ogImage;
+    return img.startsWith('http') ? img : `${siteConfig.url}${img.startsWith('/') ? '' : '/'}${img}`;
+}
+
 export function getSchemaArticle(article: {
     title: string;
     description: string;
     author: string;
     datePublished: string;
     dateModified: string;
-    image: string;
+    image?: string;
     url: string;
 }) {
     return {
@@ -143,7 +149,7 @@ export function getSchemaArticle(article: {
         "@type": "BlogPosting",
         "headline": article.title,
         "description": article.description,
-        "image": article.image,
+        "image": getFullImageUrl(article.image),
         "author": {
             "@type": "Person",
             "name": article.author,
@@ -178,6 +184,7 @@ export function getSchemaCalculator(calc: {
     name: string;
     description: string;
     url: string;
+    image?: string;
 }) {
     return {
         "@context": "https://schema.org",
@@ -185,6 +192,7 @@ export function getSchemaCalculator(calc: {
         "name": calc.name,
         "description": calc.description,
         "url": calc.url,
+        "image": getFullImageUrl(calc.image),
         "applicationCategory": "HealthApplication",
         "operatingSystem": "All",
         "offers": {
