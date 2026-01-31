@@ -31,6 +31,8 @@ const Input = styled.input`
   border-radius: ${({ theme }) => theme.borderRadius.md};
   border: 2px solid ${({ theme }) => theme.colors.border};
   font-size: 1rem;
+  width: 100%;
+  box-sizing: border-box;
   &:focus {
     outline: none;
     border-color: ${({ theme }) => theme.colors.primary};
@@ -44,6 +46,8 @@ const Select = styled.select`
   font-size: 1rem;
   background-color: white;
   cursor: pointer;
+  width: 100%;
+  box-sizing: border-box;
   &:focus {
     outline: none;
     border-color: ${({ theme }) => theme.colors.primary};
@@ -145,15 +149,15 @@ export default function PesoIdealCalculator() {
     <Card>
       <Form>
         <FormGroup>
-          <Label>Seu Sexo</Label>
-          <Select value={gender} onChange={(e) => setGender(e.target.value)}>
+          <Label htmlFor="gender">Seu Sexo</Label>
+          <Select id="gender" value={gender} onChange={(e) => setGender(e.target.value)}>
             <option value="male">Masculino</option>
             <option value="female">Feminino</option>
           </Select>
         </FormGroup>
         <FormGroup>
-          <Label>Sua Altura (cm)</Label>
-          <Input type="number" placeholder="Ex: 175" value={height} onChange={(e) => setHeight(e.target.value)} />
+          <Label htmlFor="height">Sua Altura (cm)</Label>
+          <Input id="height" type="number" placeholder="Ex: 175" value={height} onChange={(e) => setHeight(e.target.value)} />
         </FormGroup>
         <Button onClick={calculateIdealWeight} $fullWidth size="lg">Calcular Peso Ideal</Button>
       </Form>

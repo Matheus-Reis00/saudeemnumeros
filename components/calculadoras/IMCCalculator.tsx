@@ -31,6 +31,8 @@ const Input = styled.input`
   border: 2px solid ${({ theme }) => theme.colors.border};
   font-size: 1rem;
   transition: all 0.2s ease;
+  width: 100%;
+  box-sizing: border-box;
   
   &:focus {
     outline: none;
