@@ -1,5 +1,6 @@
 import React from 'react';
 import { Metadata } from 'next';
+import Image from 'next/image';
 import { notFound } from 'next/navigation';
 import { Container, Section } from '@/components/ui/Container';
 import AdsenseBanner from '@/components/ads/AdsenseBanner';
@@ -65,14 +66,16 @@ export default async function ArticlePage({ params }: Props) {
             <Section>
                 <S.ArticleHeader>
                     {article.meta.image && (
-                        <S.FeaturedImage
-                            src={article.meta.image}
-                            alt={article.meta.title}
-                            title={article.meta.title}
-                            width={1200}
-                            height={630}
-                            loading="lazy"
-                        />
+                        <S.FeaturedImageContainer>
+                            <Image
+                                src={article.meta.image}
+                                alt={article.meta.title}
+                                title={article.meta.title}
+                                fill
+                                priority
+                                sizes="(max-width: 800px) 100vw, 800px"
+                            />
+                        </S.FeaturedImageContainer>
                     )}
                     <S.Title>{article.meta.title}</S.Title>
                     <S.Meta>Publicado em {new Date(article.meta.date).toLocaleDateString('pt-BR')}</S.Meta>

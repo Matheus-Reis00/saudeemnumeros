@@ -4,7 +4,7 @@ const siteConfig = {
     name: "Saúde em Números",
     description: "Calculadoras de saúde, ferramentas de emagrecimento e artigos científicos para uma vida saudável.",
     url: "https://saudeemnumeros.com.br",
-    ogImage: "/logo-og.png",
+    ogImage: "/logo-og.jpg",
     twitterHandle: "@saudeemnumeros",
     keywords: [
         "saúde",
@@ -117,7 +117,7 @@ export function getSchemaOrganization() {
         "url": siteConfig.url,
         "logo": {
             "@type": "ImageObject",
-            "url": `${siteConfig.url}/logo.png`,
+            "url": `${siteConfig.url}/logo.jpg`,
             "width": 190,
             "height": 60
         },
