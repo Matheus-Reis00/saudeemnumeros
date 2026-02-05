@@ -23,12 +23,12 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
         priority: 0.9,
     }));
 
-    // Páginas principais
-    const routes = ['', '/artigos', '/calculadoras'].map((route) => ({
+    // Páginas principais e institucionais
+    const routes = ['', '/artigos', '/calculadoras', '/sobre', '/contato', '/privacidade'].map((route) => ({
         url: `${BASE_URL}${route}`,
         lastModified: new Date(),
         changeFrequency: 'weekly' as const,
-        priority: 1.0,
+        priority: route === '' ? 1.0 : 0.8,
     }));
 
     return [...routes, ...calculatorUrls, ...articleUrls];

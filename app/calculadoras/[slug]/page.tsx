@@ -43,6 +43,8 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
     });
 }
 
+import { Breadcrumbs } from '@/components/ui/Breadcrumbs';
+
 export default async function CalculatorPage({ params }: Props) {
     const { slug } = await params;
     const calc = calculators[slug as keyof typeof calculators];
@@ -59,10 +61,14 @@ export default async function CalculatorPage({ params }: Props) {
         url: `https://saudeemnumeros.com.br/calculadoras/${slug}`,
     });
 
+    const breadcrumbItems = [
+        { name: 'Calculadoras', item: '/calculadoras' },
+        { name: calc.title.split(':')[0], item: `/calculadoras/${slug}` },
+    ];
+
     const breadcrumbsLd = getSchemaBreadcrumbs([
         { name: 'Home', item: '/' },
-        { name: 'Calculadoras', item: '/calculadoras' },
-        { name: calc.title, item: `/calculadoras/${slug}` },
+        ...breadcrumbItems
     ]);
 
     return (
@@ -78,6 +84,7 @@ export default async function CalculatorPage({ params }: Props) {
 
             <Section>
                 <div style={{ maxWidth: '800px', margin: '0 auto' }}>
+                    <Breadcrumbs items={breadcrumbItems} />
                     <h1 style={{ fontSize: '2.5rem', marginBottom: '16px', textAlign: 'center' }}>{calc.title}</h1>
                     <p style={{ fontSize: '1.125rem', color: '#6B7280', marginBottom: '40px', textAlign: 'center' }}>
                         {calc.description}

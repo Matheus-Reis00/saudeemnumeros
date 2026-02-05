@@ -2,6 +2,7 @@ import React from 'react';
 import { Metadata } from 'next';
 import HomeClient from '@/components/home/HomeClient';
 import { constructMetadata } from '@/lib/seo';
+import { getAllArticles } from '@/lib/mdx';
 
 export const metadata: Metadata = constructMetadata({
   title: 'Saúde em Números: Calculadoras de Saúde e Nutrição Online',
@@ -10,6 +11,7 @@ export const metadata: Metadata = constructMetadata({
   canonical: 'https://saudeemnumeros.com.br',
 });
 
-export default function Home() {
-  return <HomeClient />;
+export default async function Home() {
+  const articles = await getAllArticles();
+  return <HomeClient latestArticles={articles.slice(0, 6)} />;
 }

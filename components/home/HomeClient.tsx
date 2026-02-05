@@ -112,7 +112,7 @@ const ViewMoreSection = styled.div`
 `;
 
 
-export default function HomeClient() {
+export default function HomeClient({ latestArticles = [] }: { latestArticles?: any[] }) {
     return (
         <>
             <Hero>
@@ -197,20 +197,15 @@ export default function HomeClient() {
                     </SectionHeader>
 
                     <ArticlesGrid>
-                        <Card>
-                            <CardTitle>Como Emagrecer de Forma Saudável</CardTitle>
-                            <CardDescription>Aprenda as estratégias baseadas em ciência para perder peso com saúde e manter os resultados...</CardDescription>
-                            <Link href="/artigos/como-emagrecer-saudavel">
-                                <Button variant="outline" size="sm" $fullWidth>Ler Guia Completo</Button>
+                        {latestArticles.map((article) => (
+                            <Link href={`/artigos/${article.slug}`} key={article.slug} style={{ display: 'block' }}>
+                                <Card $interactive style={{ height: '100%', display: 'flex', flexDirection: 'column' }}>
+                                    <CardTitle>{article.title}</CardTitle>
+                                    <CardDescription>{article.description}</CardDescription>
+                                    <Button variant="outline" size="sm" style={{ marginTop: 'auto' }} $fullWidth>Ler Artigo</Button>
+                                </Card>
                             </Link>
-                        </Card>
-                        <Card>
-                            <CardTitle>O Segredo do Déficit Calórico</CardTitle>
-                            <CardDescription>Descubra quantas calorias você precisa queimar para emagrecer de forma consistente e saudável...</CardDescription>
-                            <Link href="/artigos/deficit-calorico">
-                                <Button variant="outline" size="sm" $fullWidth>Ler Artigo</Button>
-                            </Link>
-                        </Card>
+                        ))}
                     </ArticlesGrid>
 
                     <ViewMoreSection>

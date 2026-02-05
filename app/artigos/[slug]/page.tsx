@@ -26,6 +26,8 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
     });
 }
 
+import { Breadcrumbs } from '@/components/ui/Breadcrumbs';
+
 export default async function ArticlePage({ params }: Props) {
     const { slug } = await params;
     const article = await getArticleBySlug(slug);
@@ -46,10 +48,14 @@ export default async function ArticlePage({ params }: Props) {
         url: `https://saudeemnumeros.com.br/artigos/${slug}`,
     });
 
-    const breadcrumbsLd = getSchemaBreadcrumbs([
-        { name: 'Home', item: '/' },
+    const breadcrumbItems = [
         { name: 'Artigos', item: '/artigos' },
         { name: article.meta.title, item: `/artigos/${slug}` },
+    ];
+
+    const breadcrumbsLd = getSchemaBreadcrumbs([
+        { name: 'Home', item: '/' },
+        ...breadcrumbItems
     ]);
 
     return (
@@ -64,6 +70,7 @@ export default async function ArticlePage({ params }: Props) {
             />
 
             <Section>
+                <Breadcrumbs items={breadcrumbItems} />
                 <S.ArticleHeader>
                     {article.meta.image && (
                         <S.FeaturedImageContainer>
