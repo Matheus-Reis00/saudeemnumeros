@@ -1,10 +1,11 @@
 'use client';
 
 import React, { useState, useEffect } from 'react';
+import { useRouter } from 'next/navigation';
 import Link from 'next/link';
 import styled from 'styled-components';
 import { Container } from '../ui/Container';
-import { Activity, Menu, X } from 'lucide-react';
+import { Activity, Menu, X, Search as SearchIcon } from 'lucide-react';
 
 const HeaderWrapper = styled.header<{ $scrolled: boolean }>`
   background-color: ${({ theme, $scrolled }) => $scrolled ? 'rgba(255, 255, 255, 0.95)' : theme.colors.surface};
@@ -45,6 +46,12 @@ const Logo = styled(Link)`
   }
 `;
 
+const RightSection = styled.div`
+  display: flex;
+  align-items: center;
+  gap: ${({ theme }) => theme.spacing.lg};
+`;
+
 const NavList = styled.ul`
   display: flex;
   list-style: none;
@@ -78,6 +85,33 @@ const NavLink = styled(Link)`
     &:after {
       width: 100%;
     }
+  }
+`;
+
+const SearchNavWrapper = styled.form`
+  position: relative;
+  display: flex;
+  align-items: center;
+  
+  @media (max-width: ${({ theme }) => theme.breakpoints.tablet}) {
+    display: none;
+  }
+`;
+
+const SearchInput = styled.input`
+  background: ${({ theme }) => theme.colors.surface};
+  border: 1px solid ${({ theme }) => theme.colors.border};
+  padding: 8px 12px 8px 36px;
+  border-radius: 20px;
+  font-size: 0.875rem;
+  width: 150px;
+  transition: all 0.3s ease;
+
+  &:focus {
+    outline: none;
+    border-color: ${({ theme }) => theme.colors.primary};
+    width: 220px;
+    box-shadow: 0 0 0 3px ${({ theme }) => theme.colors.primary}15;
   }
 `;
 
@@ -158,6 +192,8 @@ const MobileNavLink = styled(Link)`
 export default function Header() {
   const [isScrolled, setIsScrolled] = useState(false);
   const [isMenuOpen, setIsMenuOpen] = useState(false);
+  const [searchQuery, setSearchQuery] = useState('');
+  const router = useRouter();
 
   useEffect(() => {
     const handleScroll = () => {
@@ -166,6 +202,15 @@ export default function Header() {
     window.addEventListener('scroll', handleScroll, { passive: true });
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
+
+  const handleSearchSubmit = (e: React.FormEvent) => {
+    e.preventDefault();
+    if (searchQuery.trim()) {
+      router.push(`/busca?q=${encodeURIComponent(searchQuery.trim())}`);
+      setSearchQuery('');
+      setIsMenuOpen(false);
+    }
+  };
 
   // Prevent body scroll when menu is open
   useEffect(() => {
@@ -189,21 +234,43 @@ export default function Header() {
               Saúde<span>EmNúmeros</span>
             </Logo>
 
-            <NavList>
-              <li><NavLink href="/">Home</NavLink></li>
-              <li><NavLink href="/calculadoras">Calculadoras</NavLink></li>
-              <li><NavLink href="/artigos">Artigos</NavLink></li>
-            </NavList>
+            <RightSection>
+              <NavList>
+                <li><NavLink href="/">Home</NavLink></li>
+                <li><NavLink href="/calculadoras">Calculadoras</NavLink></li>
+                <li><NavLink href="/artigos">Artigos</NavLink></li>
+              </NavList>
 
-            <MobileMenuBtn onClick={toggleMenu} aria-label="Menu principal">
-              {isMenuOpen ? <X size={32} /> : <Menu size={32} />}
-            </MobileMenuBtn>
+              <SearchNavWrapper onSubmit={handleSearchSubmit}>
+                <SearchIcon size={16} color="#9CA3AF" style={{ position: 'absolute', left: '12px' }} />
+                <SearchInput
+                  type="text"
+                  placeholder="Buscar..."
+                  value={searchQuery}
+                  onChange={(e) => setSearchQuery(e.target.value)}
+                />
+              </SearchNavWrapper>
+
+              <MobileMenuBtn onClick={toggleMenu} aria-label="Menu principal">
+                {isMenuOpen ? <X size={32} /> : <Menu size={32} />}
+              </MobileMenuBtn>
+            </RightSection>
           </Nav>
         </Container>
       </HeaderWrapper>
 
       <MobileOverlay $isOpen={isMenuOpen} onClick={closeMenu} />
       <MobileMenu $isOpen={isMenuOpen}>
+        <form onSubmit={handleSearchSubmit} style={{ position: 'relative', marginBottom: '20px' }}>
+          <SearchIcon size={18} color="#9CA3AF" style={{ position: 'absolute', left: '12px', top: '50%', transform: 'translateY(-50%)' }} />
+          <SearchInput
+            type="text"
+            placeholder="Buscar no site..."
+            value={searchQuery}
+            onChange={(e) => setSearchQuery(e.target.value)}
+            style={{ width: '100%', paddingLeft: '40px' }}
+          />
+        </form>
         <MobileNavLink href="/" onClick={closeMenu}>Home <Activity size={20} /></MobileNavLink>
         <MobileNavLink href="/calculadoras" onClick={closeMenu}>Calculadoras</MobileNavLink>
         <MobileNavLink href="/artigos" onClick={closeMenu}>Artigos</MobileNavLink>

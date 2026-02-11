@@ -66,11 +66,12 @@ export async function getAllArticles() {
         .map((file) => {
             const filePath = path.join(contentDirectory, file);
             const fileContent = fs.readFileSync(filePath, 'utf8');
-            const { data } = matter(fileContent);
+            const { data, content } = matter(fileContent);
             const slug = file.replace(/\.mdx$/, '');
             return {
                 ...data,
                 slug,
+                content, // Inclui o conteúdo para busca
                 image: getArticleImage(slug, (data as any).image)
             } as any;
         })
