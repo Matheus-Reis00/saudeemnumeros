@@ -1,11 +1,15 @@
 import React from 'react';
 import { Metadata } from 'next';
 import Image from 'next/image';
+import Link from 'next/link';
 import { notFound } from 'next/navigation';
 import { Container, Section } from '@/components/ui/Container';
 import { getArticleBySlug } from '@/lib/mdx';
 import { constructMetadata, getSchemaArticle, getSchemaBreadcrumbs } from '@/lib/seo';
 import * as S from './ArticleStyles';
+import { Breadcrumbs } from '@/components/ui/Breadcrumbs';
+import ShareButtons from '@/components/ui/ShareButtons';
+import AuthorAvatar from '@/components/ui/AuthorAvatar';
 
 interface Props {
     params: Promise<{ slug: string }>;
@@ -25,9 +29,6 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
     });
 }
 
-import { Breadcrumbs } from '@/components/ui/Breadcrumbs';
-import ShareButtons from '@/components/ui/ShareButtons';
-
 export default async function ArticlePage({ params }: Props) {
     const { slug } = await params;
     const article = await getArticleBySlug(slug);
@@ -38,11 +39,12 @@ export default async function ArticlePage({ params }: Props) {
 
     const articleUrl = `https://saudeemnumeros.com.br/artigos/${slug}`;
     const articleTitle = (article.meta as any).title;
+    const author = (article.meta as any).author;
 
     const jsonLd = getSchemaArticle({
         title: articleTitle,
         description: (article.meta as any).description,
-        author: 'Redação Saúde em Números',
+        author: author.name,
         datePublished: (article.meta as any).date,
         dateModified: (article.meta as any).date,
         image: (article.meta as any).image,
@@ -89,6 +91,8 @@ export default async function ArticlePage({ params }: Props) {
                     )}
                     <S.Title>{articleTitle}</S.Title>
                     <S.Meta>
+                        <span>Por <Link href={`/autores/${author.id}`} style={{ color: '#3B82F6', textDecoration: 'none', fontWeight: 600 }}>{author.name}</Link></span>
+                        <span style={{ margin: '0 8px', color: '#ccc' }}>•</span>
                         Publicado em {new Date((article.meta as any).date).toLocaleDateString('pt-BR')}
                     </S.Meta>
                     <ShareButtons title={articleTitle} url={articleUrl} />
@@ -98,10 +102,40 @@ export default async function ArticlePage({ params }: Props) {
                     {article.content}
                 </S.ContentWrapper>
 
-                <div style={{ marginTop: '64px', paddingTop: '32px', borderTop: '1px solid #eee' }}>
-                    <h3 style={{ marginBottom: '16px', fontSize: '1.25rem' }}>Gostou desse conteúdo? Compartilhe!</h3>
-                    <ShareButtons title={articleTitle} url={articleUrl} />
+                {/* Author Box */}
+                <div style={{
+                    marginTop: '64px',
+                    padding: '32px',
+                    backgroundColor: '#f8fafc',
+                    borderRadius: '16px',
+                    display: 'flex',
+                    gap: '24px',
+                    alignItems: 'center',
+                    border: '1px solid #e2e8f0'
+                }}>
+                    <AuthorAvatar name={author.name} image={author.image} size={80} />
+                    <div>
+                        <h4 style={{ margin: 0, fontSize: '1.25rem' }}>
+                            <Link href={`/autores/${author.id}`} style={{ color: 'inherit', textDecoration: 'none' }}>{author.name}</Link>
+                        </h4>
+                        <p style={{ margin: '4px 0 8px', fontSize: '0.875rem', color: '#3B82F6', fontWeight: 600 }}>{author.role}</p>
+                        <p style={{ margin: 0, fontSize: '0.95rem', color: '#475569', lineHeight: '1.5' }}>{author.bio}</p>
+                    </div>
                 </div>
+
+                <div style={{ marginTop: '48px', paddingTop: '32px', borderTop: '1px solid #eee' }}>
+                    <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', flexWrap: 'wrap', gap: '16px' }}>
+                        <div>
+                            <h3 style={{ marginBottom: '8px', fontSize: '1.25rem' }}>Gostou desse conteúdo?</h3>
+                            <p style={{ color: '#64748b', fontSize: '0.875rem', margin: 0 }}>Compartilhe com seus amigos e familiares!</p>
+                        </div>
+                        <ShareButtons title={articleTitle} url={articleUrl} />
+                    </div>
+                </div>
+
+                <p style={{ marginTop: '48px', fontSize: '0.75rem', color: '#94a3b8', textAlign: 'center', fontStyle: 'italic' }}>
+                    Este portal utiliza assistentes virtuais de inteligência para auxiliar na curadoria e apresentação de dados científicos de forma acessível.
+                </p>
             </Section>
         </Container>
     );

@@ -9,9 +9,18 @@ import WaterCalculator from '@/components/calculadoras/WaterCalculator';
 import BodyFatCalculator from '@/components/calculadoras/BodyFatCalculator';
 import MacroCalculator from '@/components/calculadoras/MacroCalculator';
 import remarkGfm from 'remark-gfm';
+import { authors } from './authors';
 
 const contentDirectory = path.join(process.cwd(), 'content/artigos');
 const publicImagesDirectory = path.join(process.cwd(), 'public/images');
+
+function getAuthorData(authorId?: string) {
+    if (!authorId || !authors[authorId]) {
+        // Henrique Santos como autor padrão ou o primeiro disponível
+        return authors['henrique-santos'];
+    }
+    return authors[authorId];
+}
 
 function getArticleImage(slug: string, frontmatterImage?: string) {
     if (frontmatterImage) return frontmatterImage;
@@ -59,7 +68,8 @@ export async function getArticleBySlug(slug: string) {
     return {
         meta: {
             ...data,
-            image: getArticleImage(realSlug, (data as any).image)
+            image: getArticleImage(realSlug, (data as any).image),
+            author: getAuthorData((data as any).author)
         },
         content: mdxContent,
         slug: realSlug,
@@ -84,10 +94,16 @@ export async function getAllArticles() {
                 ...data,
                 slug,
                 content, // Inclui o conteúdo para busca
-                image: getArticleImage(slug, (data as any).image)
+                image: getArticleImage(slug, (data as any).image),
+                author: getAuthorData((data as any).author)
             } as any;
         })
         .sort((a, b) => new Date(b.date).getTime() - new Date(a.date).getTime());
 
     return articles;
+}
+
+export async function getArticlesByAuthor(authorId: string) {
+    const all = await getAllArticles();
+    return all.filter(article => article.author.id === authorId);
 }

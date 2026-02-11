@@ -31,5 +31,14 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
         priority: route === '' ? 1.0 : route === '/busca' ? 0.6 : 0.8,
     }));
 
-    return [...routes, ...calculatorUrls, ...articleUrls];
+    // Autores
+    const authorSlugs = ['henrique-santos', 'mariana-silva'];
+    const authorUrls = authorSlugs.map((slug) => ({
+        url: `${BASE_URL}/autores/${slug}`,
+        lastModified: new Date(),
+        changeFrequency: 'monthly' as const,
+        priority: 0.5,
+    }));
+
+    return [...routes, ...calculatorUrls, ...articleUrls, ...authorUrls];
 }
