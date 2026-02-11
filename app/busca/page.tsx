@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { Suspense } from 'react';
 import { Metadata } from 'next';
 import { constructMetadata } from '@/lib/seo';
 import { getAllArticles } from '@/lib/mdx';
@@ -13,5 +13,9 @@ export const metadata: Metadata = constructMetadata({
 export default async function SearchPage() {
     const articles = await getAllArticles();
 
-    return <SearchPageClient articles={articles} />;
+    return (
+        <Suspense fallback={null}>
+            <SearchPageClient articles={articles} />
+        </Suspense>
+    );
 }
