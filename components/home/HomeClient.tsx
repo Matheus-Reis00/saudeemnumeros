@@ -7,7 +7,7 @@ import Image from 'next/image';
 import { Container, Section } from '@/components/ui/Container';
 import { Card, CardTitle, CardDescription } from '@/components/ui/Card';
 import { Button } from '@/components/ui/Button';
-import { Calculator, Flame, HeartPulse } from 'lucide-react';
+import { Calculator, Flame, HeartPulse, Droplets, PieChart, Ruler } from 'lucide-react';
 
 const HeroSection = styled.section`
   padding: ${({ theme }) => theme.spacing.xl} 0;
@@ -142,10 +142,20 @@ const DateLabel = styled.span`
 `;
 
 export default function HomeClient({ latestArticles = [] }: { latestArticles?: any[] }) {
-    const mainStory = latestArticles[0];
-    const sideStories = latestArticles.slice(1, 4);
-    const middleStories = latestArticles.slice(4, 8);
-    const archiveStories = latestArticles.slice(8);
+    // Encontra o primeiro artigo com imagem para ser o destaque principal
+    const mainStoryIndex = latestArticles.findIndex(article => article.image);
+
+    // Se não encontrar nenhum com imagem, usa o primeiro mesmo (fallback de segurança)
+    const activeMainIndex = mainStoryIndex !== -1 ? mainStoryIndex : 0;
+
+    const mainStory = latestArticles[activeMainIndex];
+
+    // Filtra para remover o artigo que foi usado no destaque das outras listas
+    const remainingArticles = latestArticles.filter((_, index) => index !== activeMainIndex);
+
+    const sideStories = remainingArticles.slice(0, 3);
+    const middleStories = remainingArticles.slice(3, 7);
+    const archiveStories = remainingArticles.slice(7);
 
     return (
         <>
@@ -155,15 +165,17 @@ export default function HomeClient({ latestArticles = [] }: { latestArticles?: a
                         {mainStory && (
                             <Link href={`/artigos/${mainStory.slug}`} style={{ textDecoration: 'none' }}>
                                 <MainStory>
-                                    <div className="image-wrapper">
-                                        <Image
-                                            src={mainStory.image || '/logo-og.png'}
-                                            alt={mainStory.title}
-                                            fill
-                                            priority
-                                            style={{ objectFit: 'cover' }}
-                                        />
-                                    </div>
+                                    {mainStory.image && (
+                                        <div className="image-wrapper">
+                                            <Image
+                                                src={mainStory.image}
+                                                alt={mainStory.title}
+                                                fill
+                                                priority
+                                                style={{ objectFit: 'cover' }}
+                                            />
+                                        </div>
+                                    )}
                                     <DateLabel>{new Date(mainStory.date).toLocaleDateString('pt-BR')}</DateLabel>
                                     <h2>{mainStory.title}</h2>
                                     <p>{mainStory.description}</p>
@@ -221,6 +233,33 @@ export default function HomeClient({ latestArticles = [] }: { latestArticles?: a
                                 <Flame color="#3B82F6" size={40} style={{ marginBottom: '16px' }} />
                                 <CardTitle>Gasto Calórico (TDEE)</CardTitle>
                                 <CardDescription>Descubra quantas calorias seu corpo queima por dia.</CardDescription>
+                                <Button variant="outline" size="sm" style={{ marginTop: 'auto' }} $fullWidth>Calcular agora</Button>
+                            </Card>
+                        </Link>
+
+                        <Link href="/calculadoras/macros" style={{ textDecoration: 'none' }}>
+                            <Card $interactive style={{ height: '100%' }}>
+                                <PieChart color="#F59E0B" size={40} style={{ marginBottom: '16px' }} />
+                                <CardTitle>Calculadora de Macros</CardTitle>
+                                <CardDescription>Divisão de proteínas, gorduras e carboidratos para sua dieta.</CardDescription>
+                                <Button variant="outline" size="sm" style={{ marginTop: 'auto' }} $fullWidth>Calcular agora</Button>
+                            </Card>
+                        </Link>
+
+                        <Link href="/calculadoras/agua" style={{ textDecoration: 'none' }}>
+                            <Card $interactive style={{ height: '100%' }}>
+                                <Droplets color="#0EA5E9" size={40} style={{ marginBottom: '16px' }} />
+                                <CardTitle>Ingestão de Água</CardTitle>
+                                <CardDescription>Calcule quanto de água você deve beber baseado no seu peso.</CardDescription>
+                                <Button variant="outline" size="sm" style={{ marginTop: 'auto' }} $fullWidth>Calcular agora</Button>
+                            </Card>
+                        </Link>
+
+                        <Link href="/calculadoras/gordura-corporal" style={{ textDecoration: 'none' }}>
+                            <Card $interactive style={{ height: '100%' }}>
+                                <Ruler color="#8B5CF6" size={40} style={{ marginBottom: '16px' }} />
+                                <CardTitle>Percentual de Gordura</CardTitle>
+                                <CardDescription>Estime sua gordura corporal via método da Marinha EUA.</CardDescription>
                                 <Button variant="outline" size="sm" style={{ marginTop: 'auto' }} $fullWidth>Calcular agora</Button>
                             </Card>
                         </Link>

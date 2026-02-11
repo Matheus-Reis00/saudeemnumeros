@@ -6,12 +6,12 @@ import { CardTitle, CardDescription } from '@/components/ui/Card';
 import { Button } from '@/components/ui/Button';
 import { constructMetadata, getSchemaBreadcrumbs } from '@/lib/seo';
 import * as S from '../artigos/ArticlesStyles'; // Reutilizando os estilos de grid
-import { Calculator, Flame, HeartPulse } from 'lucide-react';
+import { Calculator, Flame, HeartPulse, Droplets, Ruler, PieChart } from 'lucide-react';
 
 export const metadata: Metadata = constructMetadata({
-    title: 'Nossas Calculadoras de Saúde: IMC, Calorias e Peso Ideal',
-    description: 'Ferramentas de saúde precisas e gratuitas. Calcule seu IMC, taxa metabólica (TDEE) e peso ideal com fórmulas científicas atualizadas para 2026.',
-    image: '/logo-og.jpg',
+    title: 'Nossas Calculadoras de Saúde: IMC, Calorias, Macros e mais',
+    description: 'Ferramentas de saúde precisas e gratuitas. Calcule seu IMC, TDEE, macros, ingestão de água e gordura corporal com fórmulas científicas.',
+    image: '/logo-og.png',
     canonical: 'https://saudeemnumeros.com.br/calculadoras',
 });
 
@@ -33,6 +33,24 @@ const calculatorsList = [
         title: 'Peso Ideal',
         description: 'Saiba qual a faixa de peso mais saudável para sua altura e biotipo.',
         icon: <HeartPulse size={32} />
+    },
+    {
+        slug: 'agua',
+        title: 'Calculadora de Água',
+        description: 'Saiba exatamente quantos litros de água você deve beber por dia com base no seu peso.',
+        icon: <Droplets size={32} />
+    },
+    {
+        slug: 'gordura-corporal',
+        title: 'Percentual de Gordura',
+        description: 'Estime sua gordura corporal usando o método da Marinha dos EUA.',
+        icon: <Ruler size={32} />
+    },
+    {
+        slug: 'macros',
+        title: 'Calculadora de Macros',
+        description: 'Calcule a divisão ideal de proteínas, gorduras e carboidratos para seu objetivo.',
+        icon: <PieChart size={32} />
     }
 ];
 

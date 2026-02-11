@@ -15,7 +15,7 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     }));
 
     // Calculadoras estáticas
-    const calculatorSlugs = ['imc', 'calorias', 'peso-ideal'];
+    const calculatorSlugs = ['imc', 'calorias', 'peso-ideal', 'agua', 'gordura-corporal', 'macros'];
     const calculatorUrls = calculatorSlugs.map((slug) => ({
         url: `${BASE_URL}/calculadoras/${slug}`,
         lastModified: new Date(),
@@ -24,11 +24,11 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     }));
 
     // Páginas principais e institucionais
-    const routes = ['', '/artigos', '/calculadoras', '/sobre', '/contato', '/privacidade'].map((route) => ({
+    const routes = ['', '/artigos', '/calculadoras', '/busca', '/sobre', '/contato', '/privacidade'].map((route) => ({
         url: `${BASE_URL}${route}`,
         lastModified: new Date(),
         changeFrequency: 'weekly' as const,
-        priority: route === '' ? 1.0 : 0.8,
+        priority: route === '' ? 1.0 : route === '/busca' ? 0.6 : 0.8,
     }));
 
     return [...routes, ...calculatorUrls, ...articleUrls];

@@ -41,22 +41,24 @@ export default async function ArticlesListPage() {
                     {articles.map((article) => (
                         <Link href={`/artigos/${article.slug}`} key={article.slug} style={{ textDecoration: 'none' }}>
                             <S.ArticleCard $interactive>
-                                <div style={{
-                                    width: '100%',
-                                    aspectRatio: '16/9',
-                                    backgroundColor: '#eee',
-                                    borderRadius: '8px',
-                                    marginBottom: '16px',
-                                    position: 'relative',
-                                    overflow: 'hidden'
-                                }}>
-                                    <Image
-                                        src={article.image || '/logo-og.png'}
-                                        alt={article.title}
-                                        fill
-                                        style={{ objectFit: 'cover' }}
-                                    />
-                                </div>
+                                {article.image && (
+                                    <div style={{
+                                        width: '100%',
+                                        aspectRatio: '16/9',
+                                        backgroundColor: '#eee',
+                                        borderRadius: '8px',
+                                        marginBottom: '16px',
+                                        position: 'relative',
+                                        overflow: 'hidden'
+                                    }}>
+                                        <Image
+                                            src={article.image}
+                                            alt={article.title}
+                                            fill
+                                            style={{ objectFit: 'cover' }}
+                                        />
+                                    </div>
+                                )}
                                 <S.ArticleMeta>
                                     {new Date(article.date).toLocaleDateString('pt-BR', { day: '2-digit', month: 'long', year: 'numeric' })}
                                 </S.ArticleMeta>

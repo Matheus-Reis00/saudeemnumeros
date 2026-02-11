@@ -274,10 +274,13 @@ export default function Header() {
         <MobileNavLink href="/" onClick={closeMenu}>Home <Activity size={20} /></MobileNavLink>
         <MobileNavLink href="/calculadoras" onClick={closeMenu}>Calculadoras</MobileNavLink>
         <MobileNavLink href="/artigos" onClick={closeMenu}>Artigos</MobileNavLink>
-        <div style={{ marginTop: '20px', fontSize: '0.875rem', color: '#9CA3AF', fontWeight: 600, textTransform: 'uppercase' }}>Ferramentas</div>
-        <MobileNavLink href="/calculadoras/imc" onClick={closeMenu} style={{ fontSize: '1rem', border: 'none' }}>Calculadora de IMC</MobileNavLink>
-        <MobileNavLink href="/calculadoras/calorias" onClick={closeMenu} style={{ fontSize: '1rem', border: 'none' }}>Calculadora de Calorias</MobileNavLink>
-        <MobileNavLink href="/calculadoras/peso-ideal" onClick={closeMenu} style={{ fontSize: '1rem', border: 'none' }}>Peso Ideal</MobileNavLink>
+        <div style={{ marginTop: '20px', fontSize: '0.875rem', color: '#9CA3AF', fontWeight: 600, textTransform: 'uppercase', letterSpacing: '0.05em' }}>Ferramentas</div>
+        <MobileNavLink href="/calculadoras/imc" onClick={closeMenu} style={{ fontSize: '1rem', border: 'none', padding: '8px 0' }}>Calculadora de IMC</MobileNavLink>
+        <MobileNavLink href="/calculadoras/calorias" onClick={closeMenu} style={{ fontSize: '1rem', border: 'none', padding: '8px 0' }}>Calculadora de Calorias</MobileNavLink>
+        <MobileNavLink href="/calculadoras/macros" onClick={closeMenu} style={{ fontSize: '1rem', border: 'none', padding: '8px 0' }}>Calculadora de Macros</MobileNavLink>
+        <MobileNavLink href="/calculadoras/agua" onClick={closeMenu} style={{ fontSize: '1rem', border: 'none', padding: '8px 0' }}>Calculadora de Água</MobileNavLink>
+        <MobileNavLink href="/calculadoras/gordura-corporal" onClick={closeMenu} style={{ fontSize: '1rem', border: 'none', padding: '8px 0' }}>Gordura Corporal</MobileNavLink>
+        <MobileNavLink href="/calculadoras/peso-ideal" onClick={closeMenu} style={{ fontSize: '1rem', border: 'none', padding: '8px 0' }}>Peso Ideal</MobileNavLink>
       </MobileMenu>
 
       {/* Spacer to prevent content from going under fixed header */}

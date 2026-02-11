@@ -5,6 +5,9 @@ import { Container, Section } from '@/components/ui/Container';
 import IMCCalculator from '@/components/calculadoras/IMCCalculator';
 import CaloriasCalculator from '@/components/calculadoras/CaloriasCalculator';
 import PesoIdealCalculator from '@/components/calculadoras/PesoIdealCalculator';
+import WaterCalculator from '@/components/calculadoras/WaterCalculator';
+import BodyFatCalculator from '@/components/calculadoras/BodyFatCalculator';
+import MacroCalculator from '@/components/calculadoras/MacroCalculator';
 import { constructMetadata, getSchemaCalculator, getSchemaBreadcrumbs } from '@/lib/seo';
 
 interface Props {
@@ -26,6 +29,21 @@ const calculators = {
         title: 'Calculadora de Peso Ideal por Altura e Idade (Fórmulas Científicas)',
         description: 'Descubra qual o seu peso ideal utilizando as fórmulas de Devine, Robinson e Hamwi, além da faixa saudável de IMC.',
         component: PesoIdealCalculator
+    },
+    'agua': {
+        title: 'Calculadora de Ingestão de Água Diária',
+        description: 'Saiba exatamente quantos litros de água você deve beber por dia com base no seu peso e nível de atividade.',
+        component: WaterCalculator
+    },
+    'gordura-corporal': {
+        title: 'Calculadora de Percentual de Gordura (Método Marinha EUA)',
+        description: 'Estime seu percentual de gordura corporal usando apenas uma fita métrica com o método cientificamente validado da Marinha Americana.',
+        component: BodyFatCalculator
+    },
+    'macros': {
+        title: 'Calculadora de Macros: Proteínas, Gorduras e Carboidratos',
+        description: 'Distribua suas calorias diárias entre os macronutrientes ideais para seu objetivo, seja ele emagrecer ou ganhar massa muscular.',
+        component: MacroCalculator
     }
 };
 

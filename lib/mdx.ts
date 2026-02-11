@@ -5,6 +5,10 @@ import { compileMDX } from 'next-mdx-remote/rsc';
 import IMCCalculator from '@/components/calculadoras/IMCCalculator';
 import CaloriasCalculator from '@/components/calculadoras/CaloriasCalculator';
 import PesoIdealCalculator from '@/components/calculadoras/PesoIdealCalculator';
+import WaterCalculator from '@/components/calculadoras/WaterCalculator';
+import BodyFatCalculator from '@/components/calculadoras/BodyFatCalculator';
+import MacroCalculator from '@/components/calculadoras/MacroCalculator';
+import remarkGfm from 'remark-gfm';
 
 const contentDirectory = path.join(process.cwd(), 'content/artigos');
 const publicImagesDirectory = path.join(process.cwd(), 'public/images');
@@ -40,8 +44,16 @@ export async function getArticleBySlug(slug: string) {
             IMCCalculator,
             CaloriasCalculator,
             PesoIdealCalculator,
+            WaterCalculator,
+            BodyFatCalculator,
+            MacroCalculator,
         },
-        options: { parseFrontmatter: true }
+        options: {
+            parseFrontmatter: true,
+            mdxOptions: {
+                remarkPlugins: [remarkGfm],
+            }
+        }
     });
 
     return {

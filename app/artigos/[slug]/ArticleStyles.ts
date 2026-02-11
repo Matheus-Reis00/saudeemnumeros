@@ -49,6 +49,69 @@ export const ContentWrapper = styled.div`
   li { margin-bottom: 0.75rem; font-size: 1.125rem; color: #374151;}
   strong { color: ${({ theme }) => theme.colors.text}; font-weight: 700; }
   
+  /* Estilo Premium para tabelas dentro do MDX */
+  table {
+    width: 100%;
+    border-collapse: separate;
+    border-spacing: 0;
+    margin: 3rem 0;
+    font-size: 1rem;
+    background: white;
+    border-radius: 12px;
+    overflow: hidden;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.05);
+    border: 1px solid ${({ theme }) => theme.colors.border};
+    
+    /* Permite scroll em telas pequenas */
+    display: block;
+    overflow-x: auto;
+    white-space: nowrap;
+
+    @media (min-width: 800px) {
+      display: table;
+      white-space: normal;
+    }
+  }
+
+  th {
+    background-color: #f1f5f9;
+    color: ${({ theme }) => theme.colors.text};
+    font-weight: 800;
+    text-transform: uppercase;
+    font-size: 0.75rem;
+    letter-spacing: 0.05em;
+    padding: 1.25rem 1rem;
+    text-align: left;
+    border-bottom: 2px solid ${({ theme }) => theme.colors.border};
+  }
+
+  td {
+    padding: 1.125rem 1rem;
+    text-align: left;
+    border-bottom: 1px solid #f1f5f9;
+    color: #4b5563;
+    line-height: 1.5;
+  }
+
+  tr:last-child td {
+    border-bottom: none;
+  }
+
+  /* Zebra stripping */
+  tr:nth-child(even) {
+    background-color: #f8fafc;
+  }
+
+  tr:hover {
+    background-color: #eff6ff;
+    td { color: ${({ theme }) => theme.colors.primary}; }
+  }
+
+  /* Estilo para itens em destaque dentro da tabela */
+  strong {
+    color: ${({ theme }) => theme.colors.primary};
+  }
+  
   /* Estilo para calculadoras dentro do MDX */
   & > div {
     margin: 3rem 0;

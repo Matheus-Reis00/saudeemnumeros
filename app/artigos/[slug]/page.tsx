@@ -26,6 +26,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
 }
 
 import { Breadcrumbs } from '@/components/ui/Breadcrumbs';
+import ShareButtons from '@/components/ui/ShareButtons';
 
 export default async function ArticlePage({ params }: Props) {
     const { slug } = await params;
@@ -35,19 +36,22 @@ export default async function ArticlePage({ params }: Props) {
         notFound();
     }
 
+    const articleUrl = `https://saudeemnumeros.com.br/artigos/${slug}`;
+    const articleTitle = (article.meta as any).title;
+
     const jsonLd = getSchemaArticle({
-        title: (article.meta as any).title,
+        title: articleTitle,
         description: (article.meta as any).description,
         author: 'Redação Saúde em Números',
         datePublished: (article.meta as any).date,
         dateModified: (article.meta as any).date,
         image: (article.meta as any).image,
-        url: `https://saudeemnumeros.com.br/artigos/${slug}`,
+        url: articleUrl,
     });
 
     const breadcrumbItems = [
         { name: 'Artigos', item: '/artigos' },
-        { name: (article.meta as any).title, item: `/artigos/${slug}` },
+        { name: articleTitle, item: `/artigos/${slug}` },
     ];
 
     const breadcrumbsLd = getSchemaBreadcrumbs([
@@ -75,21 +79,29 @@ export default async function ArticlePage({ params }: Props) {
                         <S.FeaturedImageContainer>
                             <Image
                                 src={(article.meta as any).image}
-                                alt={(article.meta as any).title}
-                                title={(article.meta as any).title}
+                                alt={articleTitle}
+                                title={articleTitle}
                                 fill
                                 priority
                                 sizes="(max-width: 800px) 100vw, 800px"
                             />
                         </S.FeaturedImageContainer>
                     )}
-                    <S.Title>{(article.meta as any).title}</S.Title>
-                    <S.Meta>Publicado em {new Date((article.meta as any).date).toLocaleDateString('pt-BR')}</S.Meta>
+                    <S.Title>{articleTitle}</S.Title>
+                    <S.Meta>
+                        Publicado em {new Date((article.meta as any).date).toLocaleDateString('pt-BR')}
+                    </S.Meta>
+                    <ShareButtons title={articleTitle} url={articleUrl} />
                 </S.ArticleHeader>
 
                 <S.ContentWrapper>
                     {article.content}
                 </S.ContentWrapper>
+
+                <div style={{ marginTop: '64px', paddingTop: '32px', borderTop: '1px solid #eee' }}>
+                    <h3 style={{ marginBottom: '16px', fontSize: '1.25rem' }}>Gostou desse conteúdo? Compartilhe!</h3>
+                    <ShareButtons title={articleTitle} url={articleUrl} />
+                </div>
             </Section>
         </Container>
     );
