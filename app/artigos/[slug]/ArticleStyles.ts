@@ -19,7 +19,7 @@ export const FeaturedImageContainer = styled.div`
   display: block;
 
   img {
-    object-fit: cover;
+    object-fit: contain;
   }
 `;
 

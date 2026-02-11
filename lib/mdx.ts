@@ -7,6 +7,21 @@ import CaloriasCalculator from '@/components/calculadoras/CaloriasCalculator';
 import PesoIdealCalculator from '@/components/calculadoras/PesoIdealCalculator';
 
 const contentDirectory = path.join(process.cwd(), 'content/artigos');
+const publicImagesDirectory = path.join(process.cwd(), 'public/images');
+
+function getArticleImage(slug: string, frontmatterImage?: string) {
+    if (frontmatterImage) return frontmatterImage;
+
+    // Tenta encontrar imagem JPG ou PNG com o nome do slug
+    const jpgPath = path.join(publicImagesDirectory, `${slug}.jpg`);
+    if (fs.existsSync(jpgPath)) return `/images/${slug}.jpg`;
+
+    const pngPath = path.join(publicImagesDirectory, `${slug}.png`);
+    if (fs.existsSync(pngPath)) return `/images/${slug}.png`;
+
+    // Sem imagem específica, retorna null
+    return null;
+}
 
 export async function getArticleBySlug(slug: string) {
     const realSlug = slug?.replace(/\.mdx$/, '');
@@ -30,7 +45,10 @@ export async function getArticleBySlug(slug: string) {
     });
 
     return {
-        meta: data,
+        meta: {
+            ...data,
+            image: getArticleImage(realSlug, (data as any).image)
+        },
         content: mdxContent,
         slug: realSlug,
     };
@@ -49,9 +67,11 @@ export async function getAllArticles() {
             const filePath = path.join(contentDirectory, file);
             const fileContent = fs.readFileSync(filePath, 'utf8');
             const { data } = matter(fileContent);
+            const slug = file.replace(/\.mdx$/, '');
             return {
                 ...data,
-                slug: file.replace(/\.mdx$/, ''),
+                slug,
+                image: getArticleImage(slug, (data as any).image)
             } as any;
         })
         .sort((a, b) => new Date(b.date).getTime() - new Date(a.date).getTime());

@@ -5,7 +5,6 @@ import { Container, Section } from '@/components/ui/Container';
 import IMCCalculator from '@/components/calculadoras/IMCCalculator';
 import CaloriasCalculator from '@/components/calculadoras/CaloriasCalculator';
 import PesoIdealCalculator from '@/components/calculadoras/PesoIdealCalculator';
-import AdsenseBanner from '@/components/ads/AdsenseBanner';
 import { constructMetadata, getSchemaCalculator, getSchemaBreadcrumbs } from '@/lib/seo';
 
 interface Props {
@@ -74,10 +73,12 @@ export default async function CalculatorPage({ params }: Props) {
     return (
         <Container>
             <script
+                key="calculator-jsonld"
                 type="application/ld+json"
                 dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
             />
             <script
+                key="breadcrumb-jsonld"
                 type="application/ld+json"
                 dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbsLd) }}
             />
@@ -90,11 +91,7 @@ export default async function CalculatorPage({ params }: Props) {
                         {calc.description}
                     </p>
 
-                    <AdsenseBanner label="Publicidade" height="100px" />
-
                     <CalcComponent />
-
-                    <AdsenseBanner label="Espaço Publicitário" height="250px" />
 
                     <div style={{ marginTop: '64px' }}>
                         <h2 style={{ fontSize: '1.75rem', marginBottom: '24px' }}>Por que usar esta calculadora?</h2>

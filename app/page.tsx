@@ -13,5 +13,5 @@ export const metadata: Metadata = constructMetadata({
 
 export default async function Home() {
   const articles = await getAllArticles();
-  return <HomeClient latestArticles={articles.slice(0, 6)} />;
+  return <HomeClient latestArticles={articles} />;
 }

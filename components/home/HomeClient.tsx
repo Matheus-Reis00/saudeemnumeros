@@ -3,222 +3,254 @@
 import React from 'react';
 import styled from 'styled-components';
 import Link from 'next/link';
+import Image from 'next/image';
 import { Container, Section } from '@/components/ui/Container';
 import { Card, CardTitle, CardDescription } from '@/components/ui/Card';
 import { Button } from '@/components/ui/Button';
-import AdsenseBanner from '@/components/ads/AdsenseBanner';
-import { Calculator, Flame, HeartPulse, ChevronRight, ArrowRight } from 'lucide-react';
+import { Calculator, Flame, HeartPulse } from 'lucide-react';
 
-const Hero = styled.section`
-  background: linear-gradient(135deg, ${({ theme }) => theme.colors.primary} 0%, ${({ theme }) => theme.colors.secondary} 100%);
-  padding: ${({ theme }) => theme.spacing.xxl} 0;
-  color: white;
-  text-align: center;
+const HeroSection = styled.section`
+  padding: ${({ theme }) => theme.spacing.xl} 0;
+  border-bottom: 2px solid ${({ theme }) => theme.colors.border};
+  background-color: #fff;
 `;
 
-const Title = styled.h1`
-  font-size: 3.5rem;
-  margin-bottom: ${({ theme }) => theme.spacing.md};
-  font-weight: 900;
+const NewspaperGrid = styled.div`
+  display: grid;
+  grid-template-columns: 8fr 4fr;
+  gap: ${({ theme }) => theme.spacing.xl};
   
   @media (max-width: ${({ theme }) => theme.breakpoints.tablet}) {
-    font-size: 2.5rem;
+    grid-template-columns: 1fr;
   }
 `;
 
-const Subtitle = styled.p`
-  font-size: 1.25rem;
-  max-width: 600px;
-  margin: 0 auto ${({ theme }) => theme.spacing.xl};
-  opacity: 0.9;
-`;
-
-const Grid = styled.div`
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-  gap: ${({ theme }) => theme.spacing.lg};
-  margin-top: ${({ theme }) => theme.spacing.xl};
-`;
-
-const CalcCard = styled(Card)`
+const MainStory = styled.div`
   display: flex;
   flex-direction: column;
-  height: 100%;
-`;
+  gap: ${({ theme }) => theme.spacing.md};
 
-const IconWrapper = styled.div<{ $color: string }>`
-  width: 48px;
-  height: 48px;
-  border-radius: ${({ theme }) => theme.borderRadius.md};
-  background-color: ${({ $color }) => $color}15;
-  color: ${({ $color }) => $color};
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  margin-bottom: ${({ theme }) => theme.spacing.md};
-`;
-
-const ArticlesGrid = styled.div`
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
-  gap: ${({ theme }) => theme.spacing.lg};
-`;
-
-const SectionHeader = styled.div`
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  margin-bottom: ${({ theme }) => theme.spacing.xl};
+  .image-wrapper {
+    width: 100%;
+    aspect-ratio: 16 / 9;
+    background-color: ${({ theme }) => theme.colors.primary}10;
+    border-radius: ${({ theme }) => theme.borderRadius.md};
+    overflow: hidden;
+    position: relative;
+  }
 
   h2 {
-    margin-bottom: 0;
-    font-size: 2.25rem;
+    font-size: 2.5rem;
     font-weight: 800;
+    line-height: 1.1;
+    margin: ${({ theme }) => theme.spacing.sm} 0;
+    color: ${({ theme }) => theme.colors.text};
+    &:hover { color: ${({ theme }) => theme.colors.primary}; }
   }
 
-  @media (max-width: ${({ theme }) => theme.breakpoints.tablet}) {
-    flex-direction: column;
-    align-items: flex-start;
-    gap: ${({ theme }) => theme.spacing.md};
-    
-    h2 { font-size: 1.75rem; }
+  p {
+    font-size: 1.125rem;
+    color: #4b5563;
+    line-height: 1.6;
   }
 `;
 
-const ViewAllLink = styled(Link)`
+const SideStories = styled.div`
   display: flex;
-  align-items: center;
-  gap: ${({ theme }) => theme.spacing.xs};
-  color: ${({ theme }) => theme.colors.primary};
-  font-weight: 700;
-  text-decoration: none;
-  transition: all 0.2s ease;
-  padding: 8px 16px;
-  border-radius: 50px;
-  background-color: ${({ theme }) => theme.colors.primary}10;
+  flex-direction: column;
+  gap: ${({ theme }) => theme.spacing.xl};
+`;
 
-  &:hover {
-    background-color: ${({ theme }) => theme.colors.primary};
-    color: white;
-    transform: translateX(5px);
+const SideStory = styled.div`
+  padding-bottom: ${({ theme }) => theme.spacing.lg};
+  border-bottom: 1px solid ${({ theme }) => theme.colors.border};
+  &:last-child { border-bottom: none; }
+
+  h3 {
+    font-size: 1.25rem;
+    font-weight: 700;
+    line-height: 1.3;
+    margin-bottom: ${({ theme }) => theme.spacing.xs};
+    &:hover { color: ${({ theme }) => theme.colors.primary}; }
+  }
+
+  p {
+    font-size: 0.9rem;
+    color: #6b7280;
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
   }
 `;
 
-const ViewMoreSection = styled.div`
-  text-align: center;
-  margin-top: ${({ theme }) => theme.spacing.xl};
+const SecondaryGrid = styled.div`
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: ${({ theme }) => theme.spacing.lg};
+  margin: ${({ theme }) => theme.spacing.xl} 0;
   padding: ${({ theme }) => theme.spacing.xl} 0;
   border-top: 1px solid ${({ theme }) => theme.colors.border};
+  border-bottom: 1px solid ${({ theme }) => theme.colors.border};
+
+  @media (max-width: ${({ theme }) => theme.breakpoints.tablet}) {
+    grid-template-columns: 1fr 1fr;
+  }
+  @media (max-width: ${({ theme }) => theme.breakpoints.mobile}) {
+    grid-template-columns: 1fr;
+  }
 `;
 
+const MiniCard = styled.div`
+  h4 {
+    font-size: 1.1rem;
+    font-weight: 700;
+    margin-bottom: 8px;
+    &:hover { color: ${({ theme }) => theme.colors.primary}; }
+  }
+  p {
+    font-size: 0.85rem;
+    color: #6b7280;
+    line-height: 1.4;
+  }
+`;
+
+const CalcSection = styled.section`
+  background-color: #f9fafb;
+  padding: ${({ theme }) => theme.spacing.xxl} 0;
+`;
+
+const ArchiveGrid = styled.div`
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: ${({ theme }) => theme.spacing.lg};
+  
+  @media (max-width: ${({ theme }) => theme.breakpoints.tablet}) {
+    grid-template-columns: 1fr 1fr;
+  }
+  @media (max-width: ${({ theme }) => theme.breakpoints.mobile}) {
+    grid-template-columns: 1fr;
+  }
+`;
+
+const DateLabel = styled.span`
+  font-size: 0.75rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  color: ${({ theme }) => theme.colors.primary};
+  letter-spacing: 0.05em;
+`;
 
 export default function HomeClient({ latestArticles = [] }: { latestArticles?: any[] }) {
+    const mainStory = latestArticles[0];
+    const sideStories = latestArticles.slice(1, 4);
+    const middleStories = latestArticles.slice(4, 8);
+    const archiveStories = latestArticles.slice(8);
+
     return (
         <>
-            <Hero>
+            <HeroSection>
                 <Container>
-                    <Title>Sua Jornada Saudável Começa Aqui</Title>
-                    <Subtitle>
-                        Ferramentas gratuitas e conteúdo baseado em ciência para ajudar você a conquistar o corpo e a saúde que sempre desejou.
-                    </Subtitle>
-                    <Button variant="secondary" size="lg" onClick={() => window.scrollTo({ top: 800, behavior: 'smooth' })}>
-                        Explorar Ferramentas <ChevronRight />
-                    </Button>
-                </Container>
-            </Hero>
-
-            <Section id="ferramentas">
-                <Container>
-                    <AdsenseBanner label="Publicidade" />
-
-                    <SectionHeader>
-                        <h2>Ferramentas Gratuitas</h2>
-                        <ViewAllLink href="/calculadoras">
-                            Todas as Calculadoras <ArrowRight size={20} />
-                        </ViewAllLink>
-                    </SectionHeader>
-
-                    <Grid>
-                        <Link href="/calculadoras/imc" style={{ display: 'block' }}>
-                            <CalcCard $interactive>
-                                <IconWrapper $color="#10B981">
-                                    <Calculator size={32} />
-                                </IconWrapper>
-                                <CardTitle>Calculadora de IMC</CardTitle>
-                                <CardDescription>
-                                    Descubra seu Índice de Massa Corporal e saiba se você está na faixa de peso saudável recomendada pela OMS.
-                                </CardDescription>
-                                <Button variant="outline" size="sm" style={{ marginTop: 'auto' }} $fullWidth>Acessar Calculadora</Button>
-                            </CalcCard>
-                        </Link>
-
-                        <Link href="/calculadoras/calorias" style={{ display: 'block' }}>
-                            <CalcCard $interactive>
-                                <IconWrapper $color="#3B82F6">
-                                    <Flame size={32} />
-                                </IconWrapper>
-                                <CardTitle>Calculadora de Calorias</CardTitle>
-                                <CardDescription>
-                                    Calcule seu TDEE (Gasto Energético Total) e saiba exatamente quantas calorias consumir para emagrecer.
-                                </CardDescription>
-                                <Button variant="outline" size="sm" style={{ marginTop: 'auto' }} $fullWidth>Acessar Calculadora</Button>
-                            </CalcCard>
-                        </Link>
-
-                        <Link href="/calculadoras/peso-ideal" style={{ display: 'block' }}>
-                            <CalcCard $interactive>
-                                <IconWrapper $color="#EF4444">
-                                    <HeartPulse size={32} />
-                                </IconWrapper>
-                                <CardTitle>Peso Ideal</CardTitle>
-                                <CardDescription>
-                                    Saiba qual o peso ideal para sua altura e sexo, baseado em fórmulas científicas atualizadas.
-                                </CardDescription>
-                                <Button variant="outline" size="sm" style={{ marginTop: 'auto' }} $fullWidth>Acessar Calculadora</Button>
-                            </CalcCard>
-                        </Link>
-                    </Grid>
-
-                    <ViewMoreSection>
-                        <Link href="/calculadoras">
-                            <Button variant="primary" size="lg">Explorar Outras Ferramentas</Button>
-                        </Link>
-                    </ViewMoreSection>
-                </Container>
-            </Section>
-
-            <Section style={{ backgroundColor: '#fff' }}>
-                <Container>
-                    <SectionHeader>
-                        <h2>Últimos Artigos</h2>
-                        <ViewAllLink href="/artigos">
-                            Ver todos os artigos <ArrowRight size={20} />
-                        </ViewAllLink>
-                    </SectionHeader>
-
-                    <ArticlesGrid>
-                        {latestArticles.map((article) => (
-                            <Link href={`/artigos/${article.slug}`} key={article.slug} style={{ display: 'block' }}>
-                                <Card $interactive style={{ height: '100%', display: 'flex', flexDirection: 'column' }}>
-                                    <CardTitle>{article.title}</CardTitle>
-                                    <CardDescription>{article.description}</CardDescription>
-                                    <Button variant="outline" size="sm" style={{ marginTop: 'auto' }} $fullWidth>Ler Artigo</Button>
-                                </Card>
+                    <NewspaperGrid>
+                        {mainStory && (
+                            <Link href={`/artigos/${mainStory.slug}`} style={{ textDecoration: 'none' }}>
+                                <MainStory>
+                                    <div className="image-wrapper">
+                                        <Image
+                                            src={mainStory.image || '/logo-og.png'}
+                                            alt={mainStory.title}
+                                            fill
+                                            priority
+                                            style={{ objectFit: 'cover' }}
+                                        />
+                                    </div>
+                                    <DateLabel>{new Date(mainStory.date).toLocaleDateString('pt-BR')}</DateLabel>
+                                    <h2>{mainStory.title}</h2>
+                                    <p>{mainStory.description}</p>
+                                </MainStory>
                             </Link>
-                        ))}
-                    </ArticlesGrid>
-
-                    <ViewMoreSection>
-                        <Link href="/artigos">
-                            <Button variant="primary" size="lg">Conferir Todos os Artigos</Button>
-                        </Link>
-                    </ViewMoreSection>
+                        )}
+                        <SideStories>
+                            {sideStories.map((story) => (
+                                <Link href={`/artigos/${story.slug}`} key={story.slug} style={{ textDecoration: 'none', color: 'inherit' }}>
+                                    <SideStory>
+                                        <DateLabel>{new Date(story.date).toLocaleDateString('pt-BR')}</DateLabel>
+                                        <h3>{story.title}</h3>
+                                        <p>{story.description}</p>
+                                    </SideStory>
+                                </Link>
+                            ))}
+                        </SideStories>
+                    </NewspaperGrid>
                 </Container>
-            </Section>
+            </HeroSection>
+
+            <Container>
+                <SecondaryGrid>
+                    {middleStories.map((story) => (
+                        <Link href={`/artigos/${story.slug}`} key={story.slug} style={{ textDecoration: 'none', color: 'inherit' }}>
+                            <MiniCard>
+                                <DateLabel>{new Date(story.date).toLocaleDateString('pt-BR')}</DateLabel>
+                                <h4>{story.title}</h4>
+                                <p>{story.description}</p>
+                            </MiniCard>
+                        </Link>
+                    ))}
+                </SecondaryGrid>
+            </Container>
+
+            <CalcSection id="ferramentas">
+                <Container>
+                    <div style={{ textAlign: 'center', marginBottom: '40px' }}>
+                        <h2 style={{ fontSize: '2.5rem', fontWeight: 800 }}>Ferramentas de Saúde</h2>
+                        <p style={{ color: '#6b7280' }}>Calculadoras precisas baseadas em consensos médicos internacionais.</p>
+                    </div>
+
+                    <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(300px, 1fr))', gap: '24px' }}>
+                        <Link href="/calculadoras/imc" style={{ textDecoration: 'none' }}>
+                            <Card $interactive style={{ height: '100%' }}>
+                                <HeartPulse color="#10B981" size={40} style={{ marginBottom: '16px' }} />
+                                <CardTitle>Calculadora de IMC</CardTitle>
+                                <CardDescription>Saiba se seu peso está saudável segundo a OMS.</CardDescription>
+                                <Button variant="outline" size="sm" style={{ marginTop: 'auto' }} $fullWidth>Calcular agora</Button>
+                            </Card>
+                        </Link>
+
+                        <Link href="/calculadoras/calorias" style={{ textDecoration: 'none' }}>
+                            <Card $interactive style={{ height: '100%' }}>
+                                <Flame color="#3B82F6" size={40} style={{ marginBottom: '16px' }} />
+                                <CardTitle>Gasto Calórico (TDEE)</CardTitle>
+                                <CardDescription>Descubra quantas calorias seu corpo queima por dia.</CardDescription>
+                                <Button variant="outline" size="sm" style={{ marginTop: 'auto' }} $fullWidth>Calcular agora</Button>
+                            </Card>
+                        </Link>
+
+                        <Link href="/calculadoras/peso-ideal" style={{ textDecoration: 'none' }}>
+                            <Card $interactive style={{ height: '100%' }}>
+                                <Calculator color="#EF4444" size={40} style={{ marginBottom: '16px' }} />
+                                <CardTitle>Peso Ideal</CardTitle>
+                                <CardDescription>Estimativa de peso baseado em fórmulas científicas.</CardDescription>
+                                <Button variant="outline" size="sm" style={{ marginTop: 'auto' }} $fullWidth>Calcular agora</Button>
+                            </Card>
+                        </Link>
+                    </div>
+                </Container>
+            </CalcSection>
 
             <Section>
                 <Container>
-                    <AdsenseBanner label="Oportunidade de Saúde" height="300px" />
+                    <h2 style={{ fontSize: '2rem', fontWeight: 800, marginBottom: '32px' }}>Veja mais</h2>
+                    <ArchiveGrid>
+                        {archiveStories.map((story) => (
+                            <Link href={`/artigos/${story.slug}`} key={story.slug} style={{ textDecoration: 'none', color: 'inherit' }}>
+                                <MiniCard style={{ marginBottom: '24px', paddingBottom: '16px', borderBottom: '1px solid #eee' }}>
+                                    <DateLabel>{new Date(story.date).toLocaleDateString('pt-BR')}</DateLabel>
+                                    <h4 style={{ fontSize: '1.25rem' }}>{story.title}</h4>
+                                    <p>{story.description}</p>
+                                </MiniCard>
+                            </Link>
+                        ))}
+                    </ArchiveGrid>
                 </Container>
             </Section>
         </>

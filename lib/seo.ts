@@ -4,7 +4,7 @@ const siteConfig = {
     name: "Saúde em Números",
     description: "Calculadoras de saúde, ferramentas de emagrecimento e artigos científicos para uma vida saudável.",
     url: "https://saudeemnumeros.com.br",
-    ogImage: "/logo-og.jpg",
+    ogImage: "/logo-og.png",
     twitterHandle: "@saudeemnumeros",
     keywords: [
         "saúde",
@@ -31,13 +31,13 @@ const siteConfig = {
 export function constructMetadata({
     title,
     description = siteConfig.description,
-    image = siteConfig.ogImage,
+    image,
     noIndex = false,
     canonical = siteConfig.url,
 }: {
     title?: string;
     description?: string;
-    image?: string;
+    image?: string | null;
     noIndex?: boolean;
     canonical?: string;
 } = {}): Metadata {
@@ -45,10 +45,11 @@ export function constructMetadata({
         ? title.includes(siteConfig.name) ? title : `${title} | ${siteConfig.name}`
         : siteConfig.name;
 
-    // Garantir que a imagem seja uma URL absoluta
-    const imageUrl = image.startsWith('http')
-        ? image
-        : `${siteConfig.url}${image.startsWith('/') ? '' : '/'}${image}`;
+    // Garantir que a imagem seja uma URL absoluta e tenha fallback
+    const finalImage = image || siteConfig.ogImage;
+    const imageUrl = finalImage.startsWith('http')
+        ? finalImage
+        : `${siteConfig.url}${finalImage.startsWith('/') ? '' : '/'}${finalImage}`;
 
     return {
         title: fullTitle,
@@ -117,9 +118,9 @@ export function getSchemaOrganization() {
         "url": siteConfig.url,
         "logo": {
             "@type": "ImageObject",
-            "url": `${siteConfig.url}/logo.jpg`,
-            "width": 190,
-            "height": 60
+            "url": `${siteConfig.url}/logo-og.png`,
+            "width": 600,
+            "height": 600
         },
         "sameAs": [
             "https://facebook.com/saudeemnumeros",
@@ -130,7 +131,7 @@ export function getSchemaOrganization() {
 }
 
 // Helper para garantir URL absoluta de imagem
-function getFullImageUrl(image?: string) {
+function getFullImageUrl(image?: string | null) {
     const img = image || siteConfig.ogImage;
     return img.startsWith('http') ? img : `${siteConfig.url}${img.startsWith('/') ? '' : '/'}${img}`;
 }

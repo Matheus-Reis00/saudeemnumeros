@@ -4,7 +4,6 @@ import React, { useState } from 'react';
 import styled from 'styled-components';
 import { Card } from '../ui/Card';
 import { Button } from '../ui/Button';
-import AdsenseBanner from '../ads/AdsenseBanner';
 
 const Form = styled.div`
   display: flex;
@@ -176,8 +175,6 @@ export default function IMCCalculator() {
             <ResultLabel style={{ color: result.color }}>{result.label}</ResultLabel>
             <InfoText style={{ marginTop: '12px' }}>{result.info}</InfoText>
           </ResultCard>
-
-          <AdsenseBanner label="Recomendação" height="150px" />
 
           <CTA>
             <h4 style={{ marginBottom: '8px', color: '#111827' }}>Pronto para mudar seus números?</h4>
