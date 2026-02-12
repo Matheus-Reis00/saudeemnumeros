@@ -167,6 +167,16 @@ const MobileMenu = styled.div<{ $isOpen: boolean }>`
   display: flex;
   flex-direction: column;
   gap: ${({ theme }) => theme.spacing.lg};
+  overflow-y: auto;
+  scrollbar-width: thin;
+  
+  &::-webkit-scrollbar {
+    width: 4px;
+  }
+  &::-webkit-scrollbar-thumb {
+    background: ${({ theme }) => theme.colors.border};
+    border-radius: 10px;
+  }
 `;
 
 const MobileNavLink = styled(Link)`
@@ -214,11 +224,19 @@ export default function Header() {
 
   // Prevent body scroll when menu is open
   useEffect(() => {
+    const originalStyle = window.getComputedStyle(document.body).overflow;
     if (isMenuOpen) {
       document.body.style.overflow = 'hidden';
+      document.documentElement.style.overflow = 'hidden';
     } else {
       document.body.style.overflow = 'unset';
+      document.documentElement.style.overflow = 'unset';
     }
+
+    return () => {
+      document.body.style.overflow = originalStyle;
+      document.documentElement.style.overflow = 'unset';
+    };
   }, [isMenuOpen]);
 
   const toggleMenu = () => setIsMenuOpen(!isMenuOpen);
