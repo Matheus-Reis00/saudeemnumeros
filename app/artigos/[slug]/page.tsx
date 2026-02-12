@@ -90,7 +90,8 @@ export default async function ArticlePage({ params }: Props) {
                         </S.FeaturedImageContainer>
                     )}
                     <S.Title>{articleTitle}</S.Title>
-                    <S.Meta>
+                    <S.Meta style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
+                        <AuthorAvatar name={author.name} image={author.image} size={32} />
                         <span>Por <Link href={`/autores/${author.id}`} style={{ color: '#3B82F6', textDecoration: 'none', fontWeight: 600 }}>{author.name}</Link></span>
                         <span style={{ margin: '0 8px', color: '#ccc' }}>•</span>
                         Publicado em {new Date((article.meta as any).date).toLocaleDateString('pt-BR')}

@@ -38,33 +38,34 @@ const Copyright = styled.div`
 `;
 
 export default function Footer() {
-    return (
-        <FooterWrapper>
-            <Container>
-                <FooterGrid>
-                    <FooterColumn>
-                        <Title>Calculadoras</Title>
-                        <a href="/calculadoras/imc">IMC</a>
-                        <a href="/calculadoras/calorias">Calorias Diárias</a>
-                        <a href="/calculadoras/peso-ideal">Peso Ideal</a>
-                    </FooterColumn>
-                    <FooterColumn>
-                        <Title>Conteúdo</Title>
-                        <a href="/artigos">Artigos de Saúde</a>
-                        <a href="/artigos/como-emagrecer-com-saude">Como Emagrecer</a>
-                        <a href="/artigos/o-que-e-imc">O que é IMC</a>
-                    </FooterColumn>
-                    <FooterColumn>
-                        <Title>Sobre</Title>
-                        <a href="/sobre">Sobre Nós</a>
-                        <a href="/contato">Contato</a>
-                        <a href="/privacidade">Privacidade</a>
-                    </FooterColumn>
-                </FooterGrid>
-                <Copyright>
-                    &copy; {new Date().getFullYear()} Saúde em Números. Todos os direitos reservados.
-                </Copyright>
-            </Container>
-        </FooterWrapper>
-    );
+  return (
+    <FooterWrapper>
+      <Container>
+        <FooterGrid>
+          <FooterColumn>
+            <Title>Calculadoras</Title>
+            <a href="/calculadoras/imc">IMC</a>
+            <a href="/calculadoras/calorias">Calorias Diárias</a>
+            <a href="/calculadoras/peso-ideal">Peso Ideal</a>
+          </FooterColumn>
+          <FooterColumn>
+            <Title>Conteúdo</Title>
+            <a href="/artigos">Artigos de Saúde</a>
+            <a href="/autores">Nossos Autores</a>
+            <a href="/artigos/como-emagrecer-com-saude">Como Emagrecer</a>
+            <a href="/artigos/o-que-e-imc">O que é IMC</a>
+          </FooterColumn>
+          <FooterColumn>
+            <Title>Sobre</Title>
+            <a href="/sobre">Sobre Nós</a>
+            <a href="/contato">Contato</a>
+            <a href="/privacidade">Privacidade</a>
+          </FooterColumn>
+        </FooterGrid>
+        <Copyright>
+          &copy; {new Date().getFullYear()} Saúde em Números. Todos os direitos reservados.
+        </Copyright>
+      </Container>
+    </FooterWrapper>
+  );
 }

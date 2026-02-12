@@ -239,6 +239,7 @@ export default function Header() {
                 <li><NavLink href="/">Home</NavLink></li>
                 <li><NavLink href="/calculadoras">Calculadoras</NavLink></li>
                 <li><NavLink href="/artigos">Artigos</NavLink></li>
+                <li><NavLink href="/autores">Autores</NavLink></li>
               </NavList>
 
               <SearchNavWrapper onSubmit={handleSearchSubmit}>
@@ -274,6 +275,7 @@ export default function Header() {
         <MobileNavLink href="/" onClick={closeMenu}>Home <Activity size={20} /></MobileNavLink>
         <MobileNavLink href="/calculadoras" onClick={closeMenu}>Calculadoras</MobileNavLink>
         <MobileNavLink href="/artigos" onClick={closeMenu}>Artigos</MobileNavLink>
+        <MobileNavLink href="/autores" onClick={closeMenu}>Autores</MobileNavLink>
         <div style={{ marginTop: '20px', fontSize: '0.875rem', color: '#9CA3AF', fontWeight: 600, textTransform: 'uppercase', letterSpacing: '0.05em' }}>Ferramentas</div>
         <MobileNavLink href="/calculadoras/imc" onClick={closeMenu} style={{ fontSize: '1rem', border: 'none', padding: '8px 0' }}>Calculadora de IMC</MobileNavLink>
         <MobileNavLink href="/calculadoras/calorias" onClick={closeMenu} style={{ fontSize: '1rem', border: 'none', padding: '8px 0' }}>Calculadora de Calorias</MobileNavLink>
