@@ -16,6 +16,10 @@ export const metadata: Metadata = {
   },
   description: 'Calculadoras de saúde, artigos informativos e dicas para emagrecimento saudável e bem-estar.',
   keywords: ['emagrecimento', 'saúde', 'IMC', 'calorias', 'peso ideal', 'calculadoras'],
+  icons: {
+    icon: '/icon.svg',
+    apple: '/icon.svg',
+  },
 };
 
 export default function RootLayout({

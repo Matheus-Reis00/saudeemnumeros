@@ -92,9 +92,9 @@ export default async function ArticlePage({ params }: Props) {
                     <S.Title>{articleTitle}</S.Title>
                     <S.Meta style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
                         <AuthorAvatar name={author.name} image={author.image} size={32} />
-                        <span>Por <Link href={`/autores/${author.id}`} style={{ color: '#3B82F6', textDecoration: 'none', fontWeight: 600 }}>{author.name}</Link></span>
+                        <span>Por <Link href={`/autores/${author.id}`} style={{ color: '#10B981', textDecoration: 'none', fontWeight: 600 }}>{author.name}</Link></span>
                         <span style={{ margin: '0 8px', color: '#ccc' }}>•</span>
-                        Publicado em {new Date((article.meta as any).date).toLocaleDateString('pt-BR')}
+                        <span style={{ color: '#3B82F6', fontWeight: 500 }}>Publicado em {new Date((article.meta as any).date).toLocaleDateString('pt-BR')}</span>
                     </S.Meta>
                     <ShareButtons title={articleTitle} url={articleUrl} />
                 </S.ArticleHeader>
@@ -119,7 +119,7 @@ export default async function ArticlePage({ params }: Props) {
                         <h4 style={{ margin: 0, fontSize: '1.25rem' }}>
                             <Link href={`/autores/${author.id}`} style={{ color: 'inherit', textDecoration: 'none' }}>{author.name}</Link>
                         </h4>
-                        <p style={{ margin: '4px 0 8px', fontSize: '0.875rem', color: '#3B82F6', fontWeight: 600 }}>{author.role}</p>
+                        <p style={{ margin: '4px 0 8px', fontSize: '0.875rem', color: '#10B981', fontWeight: 600 }}>{author.role}</p>
                         <p style={{ margin: 0, fontSize: '0.95rem', color: '#475569', lineHeight: '1.5' }}>{author.bio}</p>
                     </div>
                 </div>

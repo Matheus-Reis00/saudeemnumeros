@@ -27,7 +27,7 @@ const AvatarContainer = styled.div<{ $size: number }>`
 const InitialsAvatar = styled.div<{ $size: number }>`
   width: 100%;
   height: 100%;
-  background: linear-gradient(135deg, ${({ theme }) => theme.colors.primary} 0%, #1e40af 100%);
+  background: linear-gradient(135deg, ${({ theme }) => theme.colors.primary} 0%, ${({ theme }) => theme.colors.secondary} 100%);
   color: white;
   display: flex;
   align-items: center;

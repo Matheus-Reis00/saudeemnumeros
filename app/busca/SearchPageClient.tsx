@@ -118,8 +118,8 @@ export default function SearchPageClient({ articles }: Props) {
                     </div>
                 </S.FilterBar>
 
-                <S.ResultsCount>
-                    <Search size={16} />
+                <S.ResultsCount style={{ color: '#3B82F6', fontWeight: 600 }}>
+                    <Search size={16} color="#3B82F6" />
                     {filteredArticles.length} {filteredArticles.length === 1 ? 'resultado encontrado' : 'resultados encontrados'}
                 </S.ResultsCount>
 

@@ -25,7 +25,7 @@ const Card = styled.div`
   &:hover {
     transform: translateY(-12px);
     box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
-    border-color: #3B82F6;
+    border-color: ${({ theme }) => theme.colors.primary};
   }
 `;
 
@@ -38,7 +38,7 @@ const Name = styled.h2`
 
 const Role = styled.p`
   font-size: 1rem;
-  color: #3B82F6;
+  color: ${({ theme }) => theme.colors.primary};
   font-weight: 700;
   margin-bottom: 20px;
   text-transform: uppercase;
@@ -55,31 +55,31 @@ const Bio = styled.p`
 
 const Specialty = styled.div`
   padding: 8px 20px;
-  background-color: #f1f5f9;
+  background-color: #eff6ff;
   border-radius: 30px;
   font-size: 0.875rem;
-  color: #64748b;
+  color: ${({ theme }) => theme.colors.secondary};
   font-weight: 600;
   margin-bottom: 24px;
 `;
 
 export default function AuthorCard({ author }: { author: Author }) {
-    return (
-        <Link href={`/autores/${author.id}`} style={{ textDecoration: 'none', color: 'inherit' }}>
-            <Card>
-                <AuthorAvatar name={author.name} image={author.image} size={140} />
+  return (
+    <Link href={`/autores/${author.id}`} style={{ textDecoration: 'none', color: 'inherit' }}>
+      <Card>
+        <AuthorAvatar name={author.name} image={author.image} size={140} />
 
-                <Name style={{ marginTop: '24px', marginBottom: '8px' }}>{author.name}</Name>
-                <Role>{author.role}</Role>
+        <Name style={{ marginTop: '24px', marginBottom: '8px' }}>{author.name}</Name>
+        <Role>{author.role}</Role>
 
-                <Bio>{author.bio}</Bio>
+        <Bio>{author.bio}</Bio>
 
-                <Specialty>Especialidade: {author.specialty}</Specialty>
+        <Specialty>Especialidade: {author.specialty}</Specialty>
 
-                <Button variant="primary" style={{ width: '100%', display: 'flex', alignItems: 'center', justifyContent: 'center', gap: '8px' }}>
-                    Ver todos os artigos <ArrowRight size={18} />
-                </Button>
-            </Card>
-        </Link>
-    );
+        <Button variant="primary" style={{ width: '100%', display: 'flex', alignItems: 'center', justifyContent: 'center', gap: '8px' }}>
+          Ver todos os artigos <ArrowRight size={18} />
+        </Button>
+      </Card>
+    </Link>
+  );
 }

@@ -88,10 +88,10 @@ export default async function AuthorPage({ params }: Props) {
                     </div>
                     <div style={{ flex: 1, minWidth: '300px' }}>
                         <h1 style={{ fontSize: '2.5rem', margin: '0 0 8px 0', fontWeight: 800 }}>{author.name}</h1>
-                        <p style={{ fontSize: '1.25rem', color: '#3B82F6', fontWeight: 600, margin: '0 0 16px 0' }}>{author.role}</p>
+                        <p style={{ fontSize: '1.25rem', color: '#10B981', fontWeight: 600, margin: '0 0 16px 0' }}>{author.role}</p>
                         <p style={{ fontSize: '1.1rem', color: '#475569', lineHeight: '1.6', margin: 0 }}>{author.bio}</p>
                         <div style={{ marginTop: '20px', display: 'flex', gap: '12px' }}>
-                            <span style={{ backgroundColor: '#eff6ff', color: '#1e40af', padding: '6px 12px', borderRadius: '20px', fontSize: '0.85rem', fontWeight: 600 }}>
+                            <span style={{ backgroundColor: '#ecfdf5', color: '#047857', padding: '6px 12px', borderRadius: '20px', fontSize: '0.85rem', fontWeight: 600 }}>
                                 {author.specialty}
                             </span>
                         </div>
