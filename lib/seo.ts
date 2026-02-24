@@ -1,9 +1,11 @@
 import { Metadata } from 'next';
 
+export const SITE_URL = process.env.NEXT_PUBLIC_SITE_URL || "https://www.saudeemnumeros.com.br";
+
 const siteConfig = {
     name: "Saúde em Números",
     description: "Calculadoras de saúde, ferramentas de emagrecimento e artigos científicos para uma vida saudável.",
-    url: "https://saudeemnumeros.com.br",
+    url: SITE_URL,
     ogImage: "/logo-og.png",
     twitterHandle: "@saudeemnumeros",
     keywords: [

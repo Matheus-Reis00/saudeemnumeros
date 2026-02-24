@@ -2,17 +2,16 @@ import React from 'react';
 import { Metadata } from 'next';
 import Link from 'next/link';
 import { Container, Section } from '@/components/ui/Container';
-import { CardTitle, CardDescription } from '@/components/ui/Card';
+import { Card, CardTitle, CardDescription } from '@/components/ui/Card';
 import { Button } from '@/components/ui/Button';
-import { constructMetadata, getSchemaBreadcrumbs } from '@/lib/seo';
+import { constructMetadata, SITE_URL, getSchemaBreadcrumbs } from '@/lib/seo';
 import * as S from '../artigos/ArticlesStyles'; // Reutilizando os estilos de grid
 import { Calculator, Flame, HeartPulse, Droplets, Ruler, PieChart } from 'lucide-react';
 
 export const metadata: Metadata = constructMetadata({
-    title: 'Nossas Calculadoras de Saúde: IMC, Calorias, Macros e mais',
-    description: 'Ferramentas de saúde precisas e gratuitas. Calcule seu IMC, TDEE, macros, ingestão de água e gordura corporal com fórmulas científicas.',
-    image: '/logo-og.png',
-    canonical: 'https://saudeemnumeros.com.br/calculadoras',
+    title: 'Nossas Calculadoras de Saúde',
+    description: 'Ferramentas gratuitas para calcular IMC, calorias diárias, peso ideal, ingestão de água e mais.',
+    canonical: `${SITE_URL}/calculadoras`,
 });
 
 const calculatorsList = [

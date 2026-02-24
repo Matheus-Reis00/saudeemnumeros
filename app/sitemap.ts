@@ -1,7 +1,7 @@
 import { MetadataRoute } from 'next';
 import { getAllArticles } from '@/lib/mdx';
 
-const BASE_URL = 'https://www.saudeemnumeros.com.br';
+const BASE_URL = process.env.NEXT_PUBLIC_SITE_URL || 'https://www.saudeemnumeros.com.br';
 
 export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     const articles = await getAllArticles();

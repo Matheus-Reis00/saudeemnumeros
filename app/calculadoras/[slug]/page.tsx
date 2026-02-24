@@ -8,7 +8,7 @@ import PesoIdealCalculator from '@/components/calculadoras/PesoIdealCalculator';
 import WaterCalculator from '@/components/calculadoras/WaterCalculator';
 import BodyFatCalculator from '@/components/calculadoras/BodyFatCalculator';
 import MacroCalculator from '@/components/calculadoras/MacroCalculator';
-import { constructMetadata, getSchemaCalculator, getSchemaBreadcrumbs } from '@/lib/seo';
+import { constructMetadata, getSchemaCalculator, getSchemaBreadcrumbs, SITE_URL } from '@/lib/seo';
 
 interface Props {
     params: Promise<{ slug: string }>;
@@ -56,7 +56,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
     return constructMetadata({
         title: calc.title,
         description: calc.description,
-        canonical: `https://saudeemnumeros.com.br/calculadoras/${slug}`,
+        canonical: `${SITE_URL}/calculadoras/${slug}`,
     });
 }
 
@@ -75,7 +75,7 @@ export default async function CalculatorPage({ params }: Props) {
     const jsonLd = getSchemaCalculator({
         name: calc.title,
         description: calc.description,
-        url: `https://saudeemnumeros.com.br/calculadoras/${slug}`,
+        url: `${SITE_URL}/calculadoras/${slug}`,
     });
 
     const breadcrumbItems = [

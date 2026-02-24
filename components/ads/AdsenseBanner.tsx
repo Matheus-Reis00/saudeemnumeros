@@ -66,7 +66,7 @@ export default function AdsenseBanner({
         <ins
           className="adsbygoogle"
           style={{ display: 'block' }}
-          data-ad-client="ca-pub-5870578760180014"
+          data-ad-client={process.env.NEXT_PUBLIC_ADSENSE_ID}
           data-ad-slot={slot}
           data-ad-format={format}
           data-full-width-responsive={responsive}

@@ -6,7 +6,7 @@ import { notFound } from 'next/navigation';
 import { Container, Section } from '@/components/ui/Container';
 import { getArticlesByAuthor } from '@/lib/mdx';
 import { authors } from '@/lib/authors';
-import { constructMetadata, getSchemaBreadcrumbs } from '@/lib/seo';
+import { constructMetadata, getSchemaBreadcrumbs, SITE_URL } from '@/lib/seo';
 import * as S from '@/app/artigos/ArticlesStyles';
 import { CardTitle, CardDescription } from '@/components/ui/Card';
 import { Button } from '@/components/ui/Button';
@@ -25,7 +25,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
     return constructMetadata({
         title: `${author.name} - Autor no Saúde em Números`,
         description: author.bio,
-        canonical: `https://saudeemnumeros.com.br/autores/${slug}`,
+        canonical: `${SITE_URL}/autores/${slug}`,
     });
 }
 
@@ -45,7 +45,7 @@ export default async function AuthorPage({ params }: Props) {
         "name": author.name,
         "jobTitle": author.role,
         "description": author.bio,
-        "image": `https://saudeemnumeros.com.br${author.image}`,
+        "image": `${SITE_URL}${author.image}`,
         "knowsAbout": [author.specialty]
     };
 

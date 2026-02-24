@@ -1,36 +1,63 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Saúde em Números 🚀
+**Domínio público**: https://www.saudeemnumeros.com.br/
 
-## Getting Started
 
-First, run the development server:
+O **Saúde em Números** é um portal completo voltado para bem-estar, emagrecimento saudável e ferramentas de biometria. O projeto combina artigos científicos de fácil compreensão com calculadoras dinâmicas para ajudar usuários a tomarem decisões baseadas em dados.
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
-```
+## ✨ Principais Funcionalidades
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+-   **Calculadoras Dinâmicas**: IMC, Calculadora de Calorias (TMB), Peso Ideal, Ingestão de Água, Gordura Corporal e Macros.
+-   **Artigos Baseados em Evidências**: Conteúdo escrito em MDX, focado em ciência do sono, nutrição e metabolismo.
+-   **Personas Especialistas**: Perfis de autores dedicados com biografia e listagem de artigos próprios.
+-   **SEO de Alta Performance**: Implementação rigorosa de Structured Data (Schema.org), OpenGraph, Meta Tags e Sitemap dinâmico.
+-   **Design Premium & Responsivo**: Interface moderna desenvolvida com Styled Components, focada em UX e performance.
+-   **Ads & Analytics**: Pronto para monetização com AdSense e monitoramento via Google Analytics 4.
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+## 🛠️ Tecnologias Utilizadas
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+-   **Framework**: [Next.js 15](https://nextjs.org/) (App Router)
+-   **Linguagem**: [TypeScript](https://www.typescriptlang.org/)
+-   **Estilização**: [Styled Components](https://styled-components.com/)
+-   **Conteúdo**: [MDX](https://mdxjs.com/) (next-mdx-remote)
+-   **Ícones**: [Lucide React](https://lucide.dev/)
+-   **Animações**: [Framer Motion](https://www.framer.com/motion/) & CSS Transitions
 
-## Learn More
+## 🚀 Como Executar o Projeto
 
-To learn more about Next.js, take a look at the following resources:
+1.  **Clone o repositório**:
+    ```bash
+    git clone https://github.com/SeuUsuario/saudeemnumeros.git
+    cd saudeemnumeros
+    ```
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+2.  **Instale as dependências**:
+    ```bash
+    npm install
+    ```
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+3.  **Configure as variáveis de ambiente**:
+    Crie um arquivo `.env` na raiz do projeto com base no `.env.example`:
+    ```env
+    NEXT_PUBLIC_GA_ID=seu_id_ga4
+    NEXT_PUBLIC_ADSENSE_ID=seu_id_adsense
+    ```
 
-## Deploy on Vercel
+4.  **Inicie o servidor de desenvolvimento**:
+    ```bash
+    npm run dev
+    ```
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+5.  **Acesse no navegador**:
+    Abra [http://localhost:3000](http://localhost:3000).
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+## 📄 Estrutura de Pastas
+
+-   `/app`: Rotas e páginas (App Router).
+-   `/components`: Componentes de UI reutilizáveis.
+-   `/content`: Artigos em formato `.mdx`.
+-   `/lib`: Funções utilitárias, lógica de SEO e gerenciamento de autores.
+-   `/public`: Imagens, ícones e arquivos estáticos.
+-   `/styles`: Tema global e configuração do Styled Components.
+
+---
+Desenvolvido por [Matheus Reis](https://github.com/Matheus-Reis00)

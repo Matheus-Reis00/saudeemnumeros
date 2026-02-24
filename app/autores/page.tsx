@@ -2,13 +2,13 @@ import React from 'react';
 import { Metadata } from 'next';
 import { Container, Section } from '@/components/ui/Container';
 import { authors } from '@/lib/authors';
-import { constructMetadata } from '@/lib/seo';
+import { constructMetadata, SITE_URL } from '@/lib/seo';
 import AuthorCard from '@/components/authors/AuthorCard';
 
 export const metadata: Metadata = constructMetadata({
     title: 'Nossos Especialistas - Saúde em Números',
     description: 'Conheça o time de especialistas por trás do Saúde em Números. Profissionais dedicados a trazer informações baseadas em dados.',
-    canonical: 'https://www.saudeemnumeros.com.br/autores',
+    canonical: `${SITE_URL}/autores`,
 });
 
 export default function AuthorsPage() {

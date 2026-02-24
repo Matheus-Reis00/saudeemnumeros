@@ -5,7 +5,7 @@ import Link from 'next/link';
 import { notFound } from 'next/navigation';
 import { Container, Section } from '@/components/ui/Container';
 import { getArticleBySlug } from '@/lib/mdx';
-import { constructMetadata, getSchemaArticle, getSchemaBreadcrumbs } from '@/lib/seo';
+import { constructMetadata, getSchemaArticle, getSchemaBreadcrumbs, SITE_URL } from '@/lib/seo';
 import * as S from './ArticleStyles';
 import { Breadcrumbs } from '@/components/ui/Breadcrumbs';
 import ShareButtons from '@/components/ui/ShareButtons';
@@ -25,7 +25,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
         title: (article.meta as any).metaTitle || (article.meta as any).title,
         description: (article.meta as any).metaDescription || (article.meta as any).description,
         image: (article.meta as any).image,
-        canonical: `https://saudeemnumeros.com.br/artigos/${slug}`,
+        canonical: `${SITE_URL}/artigos/${slug}`,
     });
 }
 
@@ -37,7 +37,7 @@ export default async function ArticlePage({ params }: Props) {
         notFound();
     }
 
-    const articleUrl = `https://saudeemnumeros.com.br/artigos/${slug}`;
+    const articleUrl = `${SITE_URL}/artigos/${slug}`;
     const articleTitle = (article.meta as any).title;
     const author = (article.meta as any).author;
 

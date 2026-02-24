@@ -6,13 +6,13 @@ import { Container, Section } from '@/components/ui/Container';
 import { CardTitle, CardDescription } from '@/components/ui/Card';
 import { Button } from '@/components/ui/Button';
 import { getAllArticles } from '@/lib/mdx';
-import { constructMetadata, getSchemaBreadcrumbs } from '@/lib/seo';
+import { constructMetadata, getSchemaBreadcrumbs, SITE_URL } from '@/lib/seo';
 import * as S from './ArticlesStyles';
 
 export const metadata: Metadata = constructMetadata({
     title: 'Artigos de Saúde e Emagrecimento',
     description: 'Confira nossos artigos informativos sobre dietas, exercícios, IMC e muito mais. Conteúdo baseado em ciência.',
-    canonical: 'https://saudeemnumeros.com.br/artigos',
+    canonical: `${SITE_URL}/artigos`,
 });
 
 export default async function ArticlesListPage() {
